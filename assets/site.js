@@ -61,7 +61,6 @@
       var open = card.getAttribute("aria-expanded") !== "true";
       card.setAttribute("aria-expanded", open ? "true" : "false");
       list.hidden = !open;
-      if (open) { var first = list.querySelector("button"); if (first) first.focus({ preventScroll: true }); }
     });
   });
 
