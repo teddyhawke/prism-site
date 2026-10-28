@@ -543,13 +543,18 @@ article.promo[hidden] { display: none; }
 .promo .tile-frame > .tile-play::after { left: 16px; top: 13px; width: 14px; height: 18px; }
 
 /* ---------- About: founder ---------- */
-.founder { display: grid; gap: 28px; }
-.founder-photo { position: relative; margin: 0; width: min(100%, 300px); aspect-ratio: 4 / 5; overflow: hidden; --lx: 92px; background: #1a1a1a; }
+/* Phones: photo and name side by side, bio and credits full width below.
+   Desktop: photo in its own column beside everything else. */
+.founder { display: grid; grid-template-columns: 128px minmax(0, 1fr); gap: 24px 18px; align-items: center; }
+.founder-photo { position: relative; margin: 0; width: 100%; aspect-ratio: 4 / 5; overflow: hidden; --lx: 56px; background: #1a1a1a; }
 .founder-photo img { width: 100%; height: 100%; object-fit: cover; }
-.founder-role { margin-top: 6px; }
+.founder-name .h-md { font-size: clamp(1.5rem, 6.5vw, 2.4rem); }
+.founder-role { margin: 6px 0 0; }
+.founder-text, .founder-credits { grid-column: 1 / -1; }
 .founder-credits .h-sm { margin-bottom: 12px; }
 .founder-credits .includes li { padding: 12px 0; }
 @media (min-width: 860px) {
-  .founder { grid-template-columns: 300px minmax(0, 1fr); gap: 32px 56px; align-items: start; }
-  .founder-credits { grid-column: 2; }
+  .founder { grid-template-columns: 300px minmax(0, 1fr); gap: 28px 56px; align-items: start; }
+  .founder-photo { grid-row: 1 / span 3; --lx: 92px; }
+  .founder-name, .founder-text, .founder-credits { grid-column: 2; }
 }
