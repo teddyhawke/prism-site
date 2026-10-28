@@ -47,6 +47,9 @@
       document.querySelectorAll("[data-kind]").forEach(function (item) {
         item.hidden = !(f === "all" || item.getAttribute("data-kind") === f);
       });
+      document.querySelectorAll("[data-group]").forEach(function (g) {
+        g.hidden = !g.querySelector("[data-kind]:not([hidden])");
+      });
     });
   });
 

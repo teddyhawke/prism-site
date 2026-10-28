@@ -493,3 +493,19 @@ button.tile-frame .poster { padding-bottom: 72px; }
 .hero-copy .h-xl { max-width: 8ch; }
 a.tile-frame { color: inherit; text-decoration: none; }
 a.tile-frame:hover .light, a.tile-frame:focus-visible .light { transform: scale(1.12); }
+
+/* ---------- Vertical promo ---------- */
+.work-group[hidden] { display: none; }
+.promo-group { margin-top: clamp(56px, 9vw, 96px); }
+.promo-head { margin-bottom: 24px; }
+.promo-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px 12px; }
+@media (min-width: 640px) { .promo-grid { grid-template-columns: repeat(3, 1fr); gap: 32px 20px; } }
+@media (min-width: 1000px) { .promo-grid { grid-template-columns: repeat(6, 1fr); gap: 32px 16px; } }
+.promo .tile-frame.vertical { aspect-ratio: 9 / 16; max-height: none; --lx: clamp(60px, 16vw, 84px); }
+.promo .tile-frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.promo .tile-frame .yt-thumb { z-index: 1; }
+.promo .tile-play { left: 8px; bottom: 8px; width: 38px; height: 38px; }
+.promo .tile-play::after { left: 14px; top: 11px; width: 12px; height: 16px; }
+.promo-title { display: block; margin-top: 10px; font-family: var(--font); font-weight: 600; font-size: 1rem; letter-spacing: -0.01em; line-height: 1.25; }
+.promo-sub { display: block; color: var(--graphite); font-size: 0.9rem; line-height: 1.35; margin-top: 2px; }
+article.promo[hidden] { display: none; }
