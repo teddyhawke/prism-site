@@ -351,3 +351,6 @@ fieldset.field { border: 0; margin: 0; padding: 0; }
 /* Staging marker: remove before launch */
 .draft-note { background: #fff4c2; color: #3b3300; font-size: 0.92rem; padding: 10px var(--gutter); text-align: center; }
 .todo { background: #fff4c2; padding: 0 3px; }
+
+/* Spam trap field, hidden from people */
+.trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }

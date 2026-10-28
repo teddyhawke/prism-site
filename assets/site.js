@@ -98,10 +98,41 @@
 
       if (!ENDPOINT) { console.log("Staging mode, inquiry not sent:", Object.fromEntries(new FormData(form))); finish(); return; }
 
+      // Bots fill the hidden field; quietly pretend success and send nothing.
+      if (form.elements.website && form.elements.website.value) { finish(); return; }
+
+      // HubSpot dropdown values are the full option labels.
+      var TYPE_LABELS = {
+        music: "Music video or release content",
+        brand: "Commercial or branded content",
+        services: "Production services",
+        development: "Film or TV development",
+        other: "Something else"
+      };
+      var fields = [];
+      ["firstname", "lastname", "email", "company", "deliverables", "timing", "budget_range", "message"].forEach(function (n) {
+        var el = form.elements[n];
+        if (el && el.value.trim()) fields.push({ objectTypeId: "0-1", name: n, value: el.value.trim() });
+      });
+      var picked = form.querySelector('input[name="project_type"]:checked');
+      if (picked) fields.push({ objectTypeId: "0-1", name: "project_type", value: TYPE_LABELS[picked.value] || picked.value });
+
+      var hutk = (document.cookie.match(/(?:^|; )hubspotutk=([^;]+)/) || [])[1];
+      var context = { pageUri: location.href, pageName: document.title };
+      if (hutk) context.hutk = hutk;
+
       submit.disabled = true; submit.textContent = "Sending…";
-      fetch(ENDPOINT, { method: "POST", body: new FormData(form), mode: "no-cors" })
-        .then(finish)
-        .catch(function () {
+      fetch(ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ submittedAt: Date.now(), fields: fields, context: context })
+      })
+        .then(function (res) {
+          if (!res.ok) return res.text().then(function (t) { throw new Error(t); });
+          finish();
+        })
+        .catch(function (err) {
+          console.error("Inquiry failed:", err);
           submit.disabled = false; submit.textContent = "Send inquiry";
           document.getElementById("send-error").hidden = false;
         });
