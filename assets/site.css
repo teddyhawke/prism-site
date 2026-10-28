@@ -23,9 +23,10 @@
   --max: 1240px;
   --measure: 34rem;
 
-  /* The badge: the angular cut from the Prism logo, reused as the site's one signature shape. */
-  --badge: polygon(0 9%, 9% 0, 64% 0, 72% 10%, 100% 10%, 100% 82%, 88% 100%, 0 100%);
-  --badge-alt: polygon(0 0, 78% 0, 86% 12%, 100% 12%, 100% 100%, 14% 100%, 0 86%);
+  /* The cut: one angled top-right corner, taken from the logo badge. Same rule at every size:
+     buttons 14px, cards 32px, large frames 56px. */
+  --cut: 32px;
+  --cut-shape: polygon(0 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% 100%, 0 100%);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -74,7 +75,6 @@ h1, h2, h3 { font-family: var(--font); font-weight: 600; margin: 0; letter-spaci
 .logo-mark {
   display: inline-flex; flex-direction: column; justify-content: center;
   background: var(--white); color: var(--black);
-  clip-path: var(--badge);
   padding: 7px 12px 6px 10px;
   font-family: var(--font); font-weight: 700; font-size: 0.95rem; line-height: 0.86; letter-spacing: -0.03em;
 }
@@ -123,7 +123,7 @@ h1, h2, h3 { font-family: var(--font); font-weight: 600; margin: 0; letter-spaci
 .btn-solid:hover { background: #262626; border-color: #262626; }
 .on-dark .btn-solid { background: var(--white); color: var(--black); border-color: var(--white); }
 .on-dark .btn-solid:hover { background: var(--concrete); border-color: var(--concrete); }
-.btn-cut { clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%); }
+.btn-cut { --cut: 14px; clip-path: var(--cut-shape); }
 .nav .btn { min-height: 40px; padding: 0 16px; font-size: 0.95rem; }
 
 /* Mobile thumb-zone call to action */
@@ -162,18 +162,13 @@ body.has-thumb-cta { padding-bottom: calc(74px + env(safe-area-inset-bottom)); }
 .hero-grid { display: grid; gap: clamp(24px, 4vw, 40px); }
 .hero-window {
   position: relative; aspect-ratio: 4 / 3; width: 100%;
-  clip-path: var(--badge); background: #111 var(--prism); overflow: hidden;
+  --cut: clamp(36px, 8vw, 56px); clip-path: var(--cut-shape); background: #111 var(--prism); overflow: hidden;
 }
 .hero-window video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 /* Placeholder light until the reel loop exists */
 .hero-window .light {
   position: absolute; inset: -40%;
-  background:
-    linear-gradient(105deg, transparent 38%, rgba(255,255,255,0.55) 47%, transparent 56%),
-    var(--prism);
-  background-size: 220% 100%, 100% 100%;
-  animation: sweep 7s ease-in-out infinite;
-  opacity: 0.95;
+  background: var(--prism);
 }
 @keyframes sweep { 0% { background-position: 120% 0, 0 0; } 60%, 100% { background-position: -60% 0, 0 0; } }
 @media (prefers-reduced-motion: reduce) { .hero-window .light { animation: none; } }
@@ -197,8 +192,8 @@ body.has-thumb-cta { padding-bottom: calc(74px + env(safe-area-inset-bottom)); }
   padding: clamp(28px, 6vw, 48px) clamp(22px, 5vw, 44px) clamp(26px, 5vw, 40px);
   min-height: 44px;
 }
-.path:nth-child(1) { clip-path: var(--badge); }
-.path:nth-child(2) { clip-path: var(--badge-alt); }
+.path { clip-path: var(--cut-shape); }
+@media (max-width: 759px) { .path { --cut: 24px; } }
 .path .path-title { display: block; font-family: var(--font); font-weight: 700; font-size: clamp(1.75rem, 6.4vw, 2.75rem); line-height: 1; letter-spacing: -0.035em; max-width: 14ch; }
 .path .path-sub { display: block; margin-top: 14px; color: var(--graphite); font-size: 1.02rem; line-height: 1.45; max-width: 28rem; }
 .path .path-go { display: inline-block; margin-top: 22px; font-weight: 600; border-bottom: 2px solid var(--black); padding-bottom: 2px; }
