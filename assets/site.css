@@ -491,3 +491,5 @@ html.intro-on body { overflow: hidden; }
 button.tile-frame .poster { padding-bottom: 72px; }
 .nowrap-all { white-space: nowrap; }
 .hero-copy .h-xl { max-width: 8ch; }
+a.tile-frame { color: inherit; text-decoration: none; }
+a.tile-frame:hover .light, a.tile-frame:focus-visible .light { transform: scale(1.12); }
