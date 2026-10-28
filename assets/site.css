@@ -27,6 +27,7 @@
      and filled with red, green and blue light, as in the badge. --lx sets its width; height follows the angle. */
   --lx: 120px;
   --slope: 0.38;
+  --bg: var(--white); /* colour of the surface behind a cut corner */
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -123,15 +124,29 @@ h1, h2, h3 { font-family: var(--font); font-weight: 600; margin: 0; letter-spaci
 .btn-solid:hover { background: #262626; border-color: #262626; }
 .on-dark .btn-solid { background: var(--white); color: var(--black); border-color: var(--white); }
 .on-dark .btn-solid:hover { background: var(--concrete); border-color: var(--concrete); }
-/* Buttons carry the same top-right slice, without the light. */
-.btn-cut { clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 7px, 100% 100%, 0 100%); }
+/* Buttons carry the same corner at small scale: RGB on solid buttons, a plain slice on outline ones.
+   Painted in the surface colour (--bg) rather than clipped, so the bands can sit in the cut. */
+.btn-cut { position: relative; }
+.btn-cut::after {
+  content: ""; position: absolute; right: -2px; top: -2px; pointer-events: none;
+  width: 24px; height: 11px;
+  background: linear-gradient(to bottom left, var(--bg) 50%, transparent 50%);
+}
+.btn-solid.btn-cut::after {
+  width: 34px; height: 16px;
+  background: linear-gradient(to bottom left,
+    var(--bg) 0 5%, var(--red) 5% 17%, var(--bg) 17% 21%,
+    var(--green) 21% 33%, var(--bg) 33% 37%, var(--blue) 37% 49%,
+    var(--bg) 49% 50%, transparent 50%);
+}
+.nav .btn-solid.btn-cut::after { width: 28px; height: 13px; }
 .nav .btn { min-height: 40px; padding: 0 16px; font-size: 0.95rem; }
 
 /* Mobile thumb-zone call to action */
 .thumb-cta {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
   padding: 10px var(--gutter) calc(10px + env(safe-area-inset-bottom));
-  background: var(--black); border-top: 1px solid var(--line-dark);
+  background: var(--black); border-top: 1px solid var(--line-dark); --bg: var(--black);
 }
 .thumb-cta .btn { width: 100%; }
 body.has-thumb-cta { padding-bottom: calc(74px + env(safe-area-inset-bottom)); }
@@ -143,8 +158,8 @@ body.has-thumb-cta { padding-bottom: calc(74px + env(safe-area-inset-bottom)); }
 /* ---------- Sections ---------- */
 
 .section { padding: clamp(56px, 10vw, 120px) 0; }
-.on-dark { background: var(--black); color: var(--white); }
-.on-concrete { background: var(--concrete); }
+.on-dark { background: var(--black); color: var(--white); --bg: var(--black); }
+.on-concrete { background: var(--concrete); --bg: var(--concrete); }
 .muted { color: var(--graphite); }
 .on-dark .muted { color: var(--ash); }
 
@@ -190,16 +205,17 @@ body.has-thumb-cta { padding-bottom: calc(74px + env(safe-area-inset-bottom)); }
   width: var(--lx); height: calc(var(--lx) * var(--slope));
   /* "to bottom left" puts the 50% line exactly on the corner's diagonal, so the bands run parallel to the slice. */
   background: linear-gradient(to bottom left,
-    var(--black) 0 4%, var(--red) 4% 14%, var(--black) 14% 19%,
-    var(--green) 19% 29%, var(--black) 29% 34%, var(--blue) 34% 44%,
-    var(--black) 44% 50%, transparent 50%);
+    var(--bg) 0 4%, var(--red) 4% 14%, var(--bg) 14% 19%,
+    var(--green) 19% 29%, var(--bg) 29% 34%, var(--blue) 34% 44%,
+    var(--bg) 44% 50%, transparent 50%);
   transition: transform .35s cubic-bezier(.2,.8,.2,1); transform-origin: 100% 0;
 }
-.path:hover .light, .path:focus-visible .light { transform: scale(1.12); }
+.path:hover .light, .path:focus-visible .light, .tile:hover .light { transform: scale(1.12); }
+.tile-frame { --lx: clamp(88px, 24vw, 124px); }
 
 /* ---------- Two paths ---------- */
 
-.paths { background: var(--black); padding: clamp(8px, 2vw, 24px) 0 clamp(56px, 9vw, 104px); }
+.paths { --bg: var(--black); background: var(--black); padding: clamp(8px, 2vw, 24px) 0 clamp(56px, 9vw, 104px); }
 .paths-grid { display: grid; gap: 18px; }
 .path {
   position: relative; display: block; text-decoration: none;
@@ -430,3 +446,7 @@ html.intro-on body { overflow: hidden; }
 @keyframes intro-out { from { clip-path: inset(0 0 0 0); } to { clip-path: inset(0 0 100% 0); visibility: hidden; } }
 
 @media (prefers-reduced-motion: reduce) { html.intro-on .prism-intro { display: none; } html.intro-on body { overflow: auto; } }
+
+/* Phone call-to-action bar: white button on black, like the header, so its light corner reads. */
+.thumb-cta .btn-solid { background: var(--white); color: var(--black); border-color: var(--white); }
+.thumb-cta .btn-solid:hover { background: var(--concrete); border-color: var(--concrete); }
