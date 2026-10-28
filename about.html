@@ -15,7 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="icon" href="assets/brand/prism-badge.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
-<link rel="stylesheet" href="assets/site.css?v=202610281459">
+<link rel="stylesheet" href="assets/site.css?v=202610281502">
 </head>
 <body class="has-thumb-cta">
 <a class="skip" href="#main">Skip to content</a>
@@ -81,19 +81,34 @@
   </div>
 </section>
 
-<section class="section">
-  <div class="wrap service-grid">
-    <div class="stack">
-      <h2 class="h-md">Who we are</h2>
-      <p>Prism was founded by Teddy Hawke, an independent film producer based in Los Angeles. <span class="todo">Two or three sentences on your background, what you've produced, and why you work this way.</span></p>
-      <p class="muted"><span class="todo">Key collaborators you want named: directors, DPs, editors you work with regularly.</span></p>
+<section class="section" aria-labelledby="who-h">
+  <div class="wrap">
+    <div class="section-head"><h2 id="who-h" class="h-lg">Who we are</h2></div>
+    <div class="founder">
+      <figure class="founder-photo">
+        <img src="assets/stills/teddy-hawke.webp" alt="Teddy Hawke, smiling, with the ocean behind him at sunset" width="270" height="338" loading="lazy" decoding="async">
+        <span class="light" aria-hidden="true"></span>
+      </figure>
+      <div class="founder-text stack">
+        <div>
+          <h3 class="h-md">Teddy Hawke</h3>
+          <p class="muted founder-role">Founder and independent film producer</p>
+        </div>
+        <p>Teddy founded Prism Entertainment in Los Angeles to make ambitious films on budgets that actually exist. He studied film and philosophy at Pepperdine and worked in tech marketing, including at Fizz, before turning to producing.</p>
+        <p>He runs Prism on a simple rule: keep making things. Each year the company sets out to make a feature, a documentary and a short, and every project is shaped from the start around what it can realistically raise, schedule and shoot. When something changes on the way, and it always does, the job is to find the creative answer first and the expensive one last.</p>
+        <p>That same discipline now goes into commercial work. Artists, agencies and brands get a producer who treats the budget and the date as part of the brief, and who has spent years making every dollar show up on screen.</p>
+        <p class="muted">Frequent collaborators include directors Christina Woo, Kenneth Vargas and <a href="https://www.imdb.com/name/nm11735726/" target="_blank" rel="noopener">Mason Campbell</a>, and cinematographer Karl-Erik Mills.</p>
+      </div>
+      <div class="founder-credits">
+        <h3 class="h-sm">Selected credits</h3>
+        <ul class="includes" aria-label="Selected credits">
+          <li><strong>Won't Forget About Me</strong>, Desiree Rose music video. Producer, co-director</li>
+          <li><strong>Walkers</strong>, short film and anthology proof of concept. Producer</li>
+          <li><strong>Borrowed Time</strong>, short film by <a href="https://www.imdb.com/name/nm11735726/" target="_blank" rel="noopener">Mason Campbell</a>. Executive producer</li>
+          <li><strong>Skin</strong>, feature thriller in development. Producer</li>
+        </ul>
+      </div>
     </div>
-    <ul class="includes" aria-label="Selected credits">
-      <li><strong>Won't Forget About Me</strong>, Desiree Rose music video. Producer, co-director</li>
-      <li><strong>Walkers</strong>, short film and anthology proof of concept. Producer</li>
-      <li><strong>Borrowed Time</strong>, short film by <a href="https://www.imdb.com/name/nm11735726/" target="_blank" rel="noopener">Mason Campbell</a>. Executive producer</li>
-      <li><strong>Skin</strong>, feature in development. Producer</li>
-    </ul>
   </div>
 </section>
 
@@ -139,7 +154,7 @@
   <button class="player-close" type="button">Close</button>
   <div class="player-frame"></div>
 </dialog>
-<script src="assets/site.js?v=202610281459" defer></script>
+<script src="assets/site.js?v=202610281502" defer></script>
 <script>document.querySelectorAll("[data-year]").forEach(function(e){e.textContent=new Date().getFullYear()});</script>
 <script type="text/javascript" async src="https://subscribe-forms.beehiiv.com/attribution.js"></script>
 </body>

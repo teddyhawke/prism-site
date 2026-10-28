@@ -539,3 +539,17 @@ article.promo[hidden] { display: none; }
 .verticals .tile-frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .tile-note a, .promo-sub a, .verticals-label a { color: inherit; text-underline-offset: 2px; }
 .slate-item p a, .includes a { color: inherit; text-underline-offset: 2px; }
+.promo .tile-frame > .tile-play { left: 10px; bottom: 10px; width: 44px; height: 44px; }
+.promo .tile-frame > .tile-play::after { left: 16px; top: 13px; width: 14px; height: 18px; }
+
+/* ---------- About: founder ---------- */
+.founder { display: grid; gap: 28px; }
+.founder-photo { position: relative; margin: 0; width: min(100%, 300px); aspect-ratio: 4 / 5; overflow: hidden; --lx: 92px; background: #1a1a1a; }
+.founder-photo img { width: 100%; height: 100%; object-fit: cover; }
+.founder-role { margin-top: 6px; }
+.founder-credits .h-sm { margin-bottom: 12px; }
+.founder-credits .includes li { padding: 12px 0; }
+@media (min-width: 860px) {
+  .founder { grid-template-columns: 300px minmax(0, 1fr); gap: 32px 56px; align-items: start; }
+  .founder-credits { grid-column: 2; }
+}
