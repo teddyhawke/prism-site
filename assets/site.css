@@ -292,6 +292,13 @@ button.tile { appearance: none; border: 0; padding: 0; background: none; text-al
 .intro .lede { margin-top: 20px; }
 .intro-band { height: 6px; background: var(--prism); }
 
+/* ---------- About principles ---------- */
+
+.principles { display: grid; gap: 0; border-top: 1px solid var(--black); }
+.principle { padding: 22px 0; border-bottom: 1px solid var(--line-light); display: grid; gap: 8px; }
+.principle p { margin: 0; color: var(--graphite); }
+@media (min-width: 860px) { .principles { grid-template-columns: repeat(3, 1fr); gap: 32px; border-top: 0; } .principle { border-top: 1px solid var(--black); border-bottom: 0; } }
+
 /* ---------- Slate ---------- */
 
 .slate { display: grid; gap: 0; border-top: 1px solid var(--black); }
@@ -367,8 +374,8 @@ fieldset.field { border: 0; margin: 0; padding: 0; }
 
 /* ---------- Homepage intro: a white slash through the badge becomes RGB bands that fill the screen ---------- */
 
-.intro { display: none; }
-html.intro-on .intro {
+.prism-intro { display: none; }
+html.intro-on .prism-intro {
   display: block; position: fixed; inset: 0; z-index: 200;
   background: var(--black); overflow: hidden; cursor: pointer;
   --angle: 18deg;
@@ -422,4 +429,4 @@ html.intro-on body { overflow: hidden; }
 @keyframes bands-widen { from { clip-path: inset(0 0 0 50%); } to { height: var(--fill, 300vmax); clip-path: inset(0 0 0 0); } }
 @keyframes intro-out { from { clip-path: inset(0 0 0 0); } to { clip-path: inset(0 0 100% 0); visibility: hidden; } }
 
-@media (prefers-reduced-motion: reduce) { html.intro-on .intro { display: none; } html.intro-on body { overflow: auto; } }
+@media (prefers-reduced-motion: reduce) { html.intro-on .prism-intro { display: none; } html.intro-on body { overflow: auto; } }
