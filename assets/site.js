@@ -2,6 +2,21 @@
 (function () {
   "use strict";
 
+  /* Homepage intro: remember it played, and let a tap or key skip it. */
+  var intro = document.getElementById("intro");
+  var root = document.documentElement;
+  if (intro && root.classList.contains("intro-on")) {
+    var done = function () {
+      root.classList.remove("intro-on");
+      if (intro.parentNode) intro.parentNode.removeChild(intro);
+      try { sessionStorage.setItem("prism-intro", "1"); } catch (e) {}
+    };
+    intro.addEventListener("animationend", function (e) { if (e.target === intro) done(); });
+    intro.addEventListener("click", done);
+    document.addEventListener("keydown", function () { if (intro.parentNode) done(); }, { once: true });
+    setTimeout(done, 2500); // safety net
+  }
+
   /* Mobile menu */
   var btn = document.querySelector(".menu-btn");
   var menu = document.getElementById("menu");

@@ -354,3 +354,39 @@ fieldset.field { border: 0; margin: 0; padding: 0; }
 
 /* Spam trap field, hidden from people */
 .trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+/* ---------- Homepage intro: white light enters the badge, leaves as RGB ---------- */
+
+.intro { display: none; }
+html.intro-on .intro {
+  display: block; position: fixed; inset: 0; z-index: 200;
+  background: var(--black); overflow: hidden; cursor: pointer;
+  animation: intro-out 0.5s cubic-bezier(.7,0,.2,1) 1.05s forwards;
+}
+html.intro-on body { overflow: hidden; }
+.intro-stage { position: absolute; left: 50%; top: 46%; width: 0; height: 0; }
+.intro-logo {
+  position: absolute; width: clamp(96px, 26vw, 150px); max-width: none; height: auto;
+  left: 0; top: 0; transform: translate(-50%, -50%) scale(0.9);
+  opacity: 0; z-index: 3;
+  animation: intro-logo 0.35s cubic-bezier(.2,.8,.2,1) 0.05s forwards;
+}
+.beam { position: absolute; top: 0; height: 6px; transform-origin: 0 50%; }
+.beam-in {
+  right: 0; width: 60vw; background: #fff; height: 4px; margin-top: -2px;
+  box-shadow: 0 0 14px 2px rgba(255,255,255,0.55);
+  transform: scaleX(0);
+  animation: beam-in 0.3s cubic-bezier(.5,0,.3,1) 0.2s forwards;
+}
+.beam-out { left: 0; width: 75vmax; margin-top: -3px; transform: rotate(var(--a)) scaleX(0); animation: beam-out 0.42s cubic-bezier(.2,.7,.2,1) forwards; }
+.beam-out.r { --a: 7deg;  background: var(--red);   box-shadow: 0 0 16px 1px rgba(234,34,68,0.6);  animation-delay: 0.46s; }
+.beam-out.g { --a: 15deg; background: var(--green); box-shadow: 0 0 16px 1px rgba(107,211,43,0.55); animation-delay: 0.5s; }
+.beam-out.b { --a: 23deg; background: var(--blue);  box-shadow: 0 0 16px 1px rgba(58,67,232,0.65); animation-delay: 0.54s; }
+@media (min-width: 860px) { .beam-out { height: 8px; margin-top: -4px; } }
+
+@keyframes intro-logo { to { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
+@keyframes beam-in { to { transform: scaleX(1); } }
+@keyframes beam-out { to { transform: rotate(var(--a)) scaleX(1); } }
+@keyframes intro-out { from { clip-path: inset(0 0 0 0); } to { clip-path: inset(0 0 100% 0); visibility: hidden; } }
+
+@media (prefers-reduced-motion: reduce) { html.intro-on .intro { display: none; } html.intro-on body { overflow: auto; } }

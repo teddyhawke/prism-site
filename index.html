@@ -16,8 +16,26 @@
 <link rel="icon" href="assets/brand/prism-badge.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
 <link rel="stylesheet" href="assets/site.css">
+<script>
+/* Homepage intro plays once per visit; skipped for reduced-motion users. */
+try {
+  if (!sessionStorage.getItem("prism-intro") && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    document.documentElement.classList.add("intro-on");
+  }
+} catch (e) {}
+</script>
+
 </head>
 <body class="has-thumb-cta">
+<div class="intro" id="intro" aria-hidden="true">
+  <div class="intro-stage">
+    <span class="beam beam-in"></span>
+    <span class="beam beam-out r"></span>
+    <span class="beam beam-out g"></span>
+    <span class="beam beam-out b"></span>
+    <img class="intro-logo" src="assets/brand/prism-badge.svg" alt="" width="150" height="160">
+  </div>
+</div>
 <a class="skip" href="#main">Skip to content</a>
 <div class="draft-note">Staging preview. Highlighted text is placeholder copy for Teddy to replace.</div>
 <header class="site-header on-dark">
