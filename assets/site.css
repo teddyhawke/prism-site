@@ -527,6 +527,6 @@ article.promo[hidden] { display: none; }
 .promo-clip .tile-play { left: 4px; bottom: 4px; width: 26px; height: 26px; }
 .promo-clip .tile-play::after { left: 9px; top: 7px; width: 9px; height: 12px; }
 .promo-clip:hover .tile-play, .promo-clip:focus-visible .tile-play { background: var(--black); }
-.promo-clip-label { display: block; margin-top: 4px; font-size: 0.82rem; color: var(--graphite); }
+.promo-clip-label { display: block; margin-top: 4px; font-size: 0.76rem; color: var(--graphite); white-space: nowrap; }
 
 .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
