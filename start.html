@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Start a project | Prism Entertainment</title>
+<meta name="description" content="Tell Prism Entertainment about your project.">
+<meta name="theme-color" content="#000000">
+<meta property="og:title" content="Start a project | Prism Entertainment">
+<meta property="og:description" content="Tell Prism Entertainment about your project.">
+<meta property="og:type" content="website">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/brand/prism-badge.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body class="">
+<a class="skip" href="#main">Skip to content</a>
+<div class="draft-note">Staging preview. Highlighted text is placeholder copy for Teddy to replace.</div>
+<header class="site-header on-dark">
+  <div class="wrap">
+    <a class="logo" href="index.html" aria-label="Prism Entertainment home">
+      <img class="logo-img" src="assets/brand/prism-lockup-on-dark.svg" alt="Prism Entertainment" width="66" height="40">
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="produce.html">Produce</a><a href="develop.html">Develop</a><a href="work.html">Work</a>
+      <a class="btn btn-solid btn-cut" href="start.html">Start a project</a>
+    </nav>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+  </div>
+</header>
+<nav class="menu" id="menu" aria-label="Mobile">
+  <a href="index.html">Home</a><a href="produce.html">Produce</a><a href="develop.html">Develop</a><a href="work.html">Work</a><a href="start.html" aria-current="page">Start a project</a>
+  <div class="menu-foot">Los Angeles<br><a href="mailto:teddy@prismentmt.com">teddy@prismentmt.com</a></div>
+</nav>
+<main id="main">
+
+<section class="intro on-dark">
+  <div class="wrap">
+    <h1 class="h-lg">Start a project</h1>
+    <p class="lede muted">Tell us what you're making. We reply within two business days.</p>
+  </div>
+</section>
+<div class="intro-band" aria-hidden="true"></div>
+<section class="section">
+  <div class="wrap">
+    <form class="form" id="inquiry" novalidate data-endpoint="">
+      <div class="two-up">
+        <div class="field">
+          <label for="f-first">First name</label>
+          <input class="input" id="f-first" name="firstname" autocomplete="given-name" aria-describedby="e-first">
+          <p class="error" id="e-first" hidden></p>
+        </div>
+        <div class="field">
+          <label for="f-last">Last name</label>
+          <input class="input" id="f-last" name="lastname" autocomplete="family-name">
+        </div>
+      </div>
+      <div class="field">
+        <label for="f-email">Email</label>
+        <input class="input" id="f-email" name="email" type="email" autocomplete="email" inputmode="email" aria-describedby="e-email">
+        <p class="error" id="e-email" hidden></p>
+      </div>
+      <div class="field">
+        <label for="f-company">Company, artist or project name</label>
+        <input class="input" id="f-company" name="company" autocomplete="organization">
+      </div>
+      <fieldset class="field">
+        <legend>What kind of project?</legend>
+        <div class="choices"><label class="choice"><input type="radio" name="project_type" value="music"><span>Music video or release content</span></label><label class="choice"><input type="radio" name="project_type" value="brand"><span>Commercial or branded content</span></label><label class="choice"><input type="radio" name="project_type" value="services"><span>Production services</span></label><label class="choice"><input type="radio" name="project_type" value="development"><span>Film or TV development</span></label><label class="choice"><input type="radio" name="project_type" value="other"><span>Something else</span></label></div>
+        <p class="error" id="type-error" hidden></p>
+      </fieldset>
+      <div class="field">
+        <label for="f-deliverables">What do you need made?</label>
+        <p class="hint" id="h-deliverables">For example: one music video and three vertical cutdowns.</p>
+        <textarea class="textarea" id="f-deliverables" name="deliverables" aria-describedby="h-deliverables"></textarea>
+      </div>
+      <div class="two-up">
+        <div class="field">
+          <label for="f-timing">When do you need it?</label>
+          <select class="select" id="f-timing" name="timing">
+            <option value="">Choose one</option>
+            <option>Within 4 weeks</option>
+            <option>1 to 3 months</option>
+            <option>3 months or more</option>
+            <option>Flexible</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="f-budget">Budget range</label>
+          <select class="select" id="f-budget" name="budget">
+            <option value="">Choose one</option>
+            <option>Under $5,000</option>
+            <option>$5,000 to $15,000</option>
+            <option>$15,000 to $50,000</option>
+            <option>$50,000 or more</option>
+            <option>Not sure yet</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label for="f-notes">Anything else we should know?</label>
+        <textarea class="textarea" id="f-notes" name="message"></textarea>
+      </div>
+      <div>
+        <button class="btn btn-solid btn-cut" type="submit">Send inquiry</button>
+        <p class="error" id="send-error" hidden style="margin-top:12px">Your inquiry didn't send. Check your connection and try again, or email teddy@prismentmt.com.</p>
+        <p class="form-note" style="margin-top:14px">We only use these details to reply to you. See our <a href="privacy.html">privacy policy</a>.</p>
+      </div>
+    </form>
+    <div class="form-done" id="form-done" tabindex="-1" hidden>
+      <h2 class="h-md">Inquiry sent.</h2>
+      <p style="margin-top:12px">Thanks. We'll reply within two business days. If it's urgent, email <a href="mailto:teddy@prismentmt.com">teddy@prismentmt.com</a>.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer class="site-footer on-dark">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="signup">
+        <h2 class="h-md">Follow the work as it gets made.</h2>
+        <p>Occasional updates on new projects, screenings and releases.</p>
+        <div class="signup-form"><script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="e3834a1d-a740-4cca-9f77-6807eabdb687"></script></div>
+        <p class="signup-consent">Unsubscribe anytime. See our <a href="privacy.html">privacy policy</a>.</p>
+      </div>
+      <div class="foot-links">
+        <a href="produce.html">Produce</a>
+        <a href="https://www.instagram.com/prismentmt">Instagram</a>
+        <a href="develop.html">Develop</a>
+        <a href="https://www.linkedin.com/company/prism-entertainment-filmtv">LinkedIn</a>
+        <a href="work.html">Work</a>
+        <a href="mailto:teddy@prismentmt.com">Email</a>
+        <a href="start.html">Start a project</a>
+        <a href="privacy.html">Privacy</a>
+      </div>
+    </div>
+    <div class="foot-base">
+      <span class="tagline">Cinema, made human.</span>
+      <span>Prism Entertainment LLC, Los Angeles. &copy; <span data-year>2026</span></span>
+    </div>
+  </div>
+</footer>
+<div class="light-line" aria-hidden="true"></div>
+<dialog class="player" id="player" aria-label="Video player">
+  <button class="player-close" type="button">Close</button>
+  <div class="player-frame"></div>
+</dialog>
+<script src="assets/site.js" defer></script>
+<script>document.querySelectorAll("[data-year]").forEach(function(e){e.textContent=new Date().getFullYear()});</script>
+<script type="text/javascript" async src="https://subscribe-forms.beehiiv.com/attribution.js"></script>
+</body>
+</html>
