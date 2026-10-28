@@ -73,8 +73,14 @@
         var url = tile.getAttribute("data-video");
         if (!url) return;
         frame.classList.toggle("vertical", tile.getAttribute("data-vertical") === "true");
-        frame.innerHTML = '<iframe src="' + url + '" title="' + (tile.getAttribute("data-title") || "Video") +
-          '" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
+        var title = tile.getAttribute("data-title") || "Video";
+        if (/\.mp4($|\?)/i.test(url)) {
+          // Self-hosted clip: native player.
+          frame.innerHTML = '<video src="' + url + '" controls autoplay playsinline title="' + title + '"></video>';
+        } else {
+          frame.innerHTML = '<iframe src="' + url + '" title="' + title +
+            '" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
+        }
         player.showModal();
       });
     });

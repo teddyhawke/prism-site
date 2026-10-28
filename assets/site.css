@@ -313,7 +313,7 @@ button.tile { appearance: none; border: 0; padding: 0; background: none; text-al
 .player::backdrop { background: rgba(0,0,0,0.92); }
 .player-frame { position: relative; aspect-ratio: 16 / 9; background: #000; }
 .player-frame.vertical { aspect-ratio: 9 / 16; height: min(82vh, 900px); width: auto; margin: 0 auto; }
-.player-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.player-frame iframe, .player-frame video { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: #000; }
 .player-close {
   display: block; margin: 0 0 10px auto; min-height: 44px; padding: 0 16px;
   background: var(--white); color: var(--black); border: 0; font: 600 1rem var(--font); cursor: pointer;
