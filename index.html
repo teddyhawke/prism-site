@@ -28,37 +28,20 @@ try {
 </head>
 <body class="has-thumb-cta">
 <div class="intro" id="intro" aria-hidden="true">
-  <div class="intro-fill"><span class="wedge r"></span><span class="wedge g"></span><span class="wedge b"></span></div>
   <div class="intro-stage">
-    <span class="beam beam-in"></span>
-    <span class="beam beam-out r"></span>
-    <span class="beam beam-out g"></span>
-    <span class="beam beam-out b"></span>
+    <span class="slash"></span>
+    <div class="bands"><span class="r"></span><span class="g"></span><span class="b"></span></div>
     <img class="intro-logo" src="assets/brand/prism-badge.svg" alt="" width="150" height="160">
   </div>
 </div>
 <script>
-/* Intro colour fill: each beam widens into a ray until red, green and blue cover the screen. */
+/* How tall the bands must grow to cover this screen at the slash angle, with margin. */
 (function () {
-  if (!document.documentElement.classList.contains("intro-on")) return;
-  var w = innerWidth, h = innerHeight, ox = w * 0.5, oy = h * 0.46, R = 2 * Math.hypot(w, h);
-  function ray(a0, a1) {
-    var pts = [ox + "px " + oy + "px"];
-    for (var i = 0; i < 5; i++) {
-      var a = (a0 + (a1 - a0) * i / 4) * Math.PI / 180;
-      pts.push((ox + R * Math.cos(a)).toFixed(1) + "px " + (oy + R * Math.sin(a)).toFixed(1) + "px");
-    }
-    return "polygon(" + pts.join(",") + ")";
-  }
-  // [colour, beam angle, final sector start, final sector end] in degrees, clockwise from the right.
-  [["r", 7, -160, -18], ["g", 15, -18, 68], ["b", 23, 68, 200]].forEach(function (d) {
-    var el = document.querySelector(".wedge." + d[0]);
-    if (!el || !el.animate) return;
-    el.animate(
-      [{ clipPath: ray(d[1] - 0.3, d[1] + 0.3) }, { clipPath: ray(d[2] - 0.6, d[3] + 0.6) }],
-      { duration: 720, delay: 850, easing: "cubic-bezier(.45,0,.15,1)", fill: "forwards" }
-    );
-  });
+  var el = document.getElementById("intro");
+  if (!el || !document.documentElement.classList.contains("intro-on")) return;
+  var a = 18 * Math.PI / 180, w = innerWidth, h = innerHeight;
+  var span = (w * Math.sin(a) + h * Math.cos(a)) * 1.12 + 32;
+  el.style.setProperty("--fill", Math.ceil(span) + "px");
 })();
 </script>
 <a class="skip" href="#main">Skip to content</a>

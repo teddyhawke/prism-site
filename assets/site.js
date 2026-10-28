@@ -14,7 +14,7 @@
     intro.addEventListener("animationend", function (e) { if (e.target === intro) done(); });
     intro.addEventListener("click", done);
     document.addEventListener("keydown", function () { if (intro.parentNode) done(); }, { once: true });
-    setTimeout(done, 3200); // safety net
+    setTimeout(done, 2400); // safety net
   }
 
   /* Mobile menu */

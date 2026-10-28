@@ -355,45 +355,57 @@ fieldset.field { border: 0; margin: 0; padding: 0; }
 /* Spam trap field, hidden from people */
 .trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 
-/* ---------- Homepage intro: white light enters the badge, leaves as RGB ---------- */
+/* ---------- Homepage intro: a white slash through the badge becomes RGB bands that fill the screen ---------- */
 
 .intro { display: none; }
 html.intro-on .intro {
   display: block; position: fixed; inset: 0; z-index: 200;
   background: var(--black); overflow: hidden; cursor: pointer;
-  animation: intro-out 0.5s cubic-bezier(.7,0,.2,1) 1.8s forwards;
+  --angle: 18deg;
+  animation: intro-out 0.38s cubic-bezier(.7,0,.25,1) 1.12s forwards;
 }
 html.intro-on body { overflow: hidden; }
-.intro-stage { position: absolute; left: 50%; top: 46%; width: 0; height: 0; z-index: 1; }
-/* Colour fill: three rays from the badge that widen until they cover the screen.
-   Shapes are set in px by the inline script on the homepage. */
-.intro-fill { position: absolute; inset: 0; z-index: 0; }
-.wedge { position: absolute; inset: 0; clip-path: polygon(50% 46%, 50% 46%, 50% 46%); }
-.wedge.r { background: var(--red); }
-.wedge.g { background: var(--green); }
-.wedge.b { background: var(--blue); }
+.intro-stage { position: absolute; left: 50%; top: 46%; width: 0; height: 0; }
+
 .intro-logo {
-  position: absolute; width: clamp(96px, 26vw, 150px); max-width: none; height: auto;
-  left: 0; top: 0; transform: translate(-50%, -50%) scale(0.9);
-  opacity: 0; z-index: 3;
-  animation: intro-logo 0.35s cubic-bezier(.2,.8,.2,1) 0.05s forwards;
+  position: absolute; left: 0; top: 0; z-index: 3;
+  width: clamp(96px, 26vw, 150px); max-width: none; height: auto;
+  transform: translate(-50%, -50%) scale(0.92); opacity: 0;
+  animation: intro-logo 0.22s cubic-bezier(.2,.8,.2,1) 0.02s forwards;
 }
-.beam { position: absolute; top: 0; height: 6px; transform-origin: 0 50%; }
-.beam-in {
-  right: 0; width: 60vw; background: #fff; height: 4px; margin-top: -2px;
-  box-shadow: 0 0 14px 2px rgba(255,255,255,0.55);
-  transform: scaleX(0);
-  animation: beam-in 0.3s cubic-bezier(.5,0,.3,1) 0.2s forwards;
+
+/* The white slash: its right end sits on the badge; it draws in from off-screen top left. */
+.slash {
+  position: absolute; right: 0; top: -2px; z-index: 2;
+  width: 120vmax; height: 4px; background: #fff;
+  box-shadow: 0 0 14px 2px rgba(255,255,255,0.6);
+  transform-origin: 100% 50%; transform: rotate(var(--angle));
+  clip-path: inset(0 100% 0 0);
+  animation: slash 0.24s cubic-bezier(.6,0,.3,1) 0.14s forwards;
 }
-.beam-out { left: 0; width: 75vmax; margin-top: -3px; transform: rotate(var(--a)) scaleX(0); animation: beam-out 0.42s cubic-bezier(.2,.7,.2,1) forwards; }
-.beam-out.r { --a: 7deg;  background: var(--red);   box-shadow: 0 0 16px 1px rgba(234,34,68,0.6);  animation-delay: 0.46s; }
-.beam-out.g { --a: 15deg; background: var(--green); box-shadow: 0 0 16px 1px rgba(107,211,43,0.55); animation-delay: 0.5s; }
-.beam-out.b { --a: 23deg; background: var(--blue);  box-shadow: 0 0 16px 1px rgba(58,67,232,0.65); animation-delay: 0.54s; }
-@media (min-width: 860px) { .beam-out { height: 8px; margin-top: -4px; } }
+
+/* The bands: three stacked stripes centred on the slash line.
+   They shoot out of the badge, then widen until they cover the screen (height set by the inline script). */
+.bands {
+  position: absolute; left: 0; top: 0; z-index: 1;
+  width: 300vmax; height: 12px;
+  display: flex; flex-direction: column;
+  transform: translate(-50%, -50%) rotate(var(--angle));
+  clip-path: inset(0 50% 0 50%);
+  animation:
+    bands-shoot 0.2s cubic-bezier(.3,.6,.3,1) 0.36s forwards,
+    bands-widen 0.5s cubic-bezier(.6,0,.2,1) 0.52s forwards;
+}
+.bands span { flex: 1; }
+.bands .r { background: var(--red); }
+.bands .g { background: var(--green); }
+.bands .b { background: var(--blue); }
+@media (min-width: 860px) { .bands { height: 18px; } }
 
 @keyframes intro-logo { to { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
-@keyframes beam-in { to { transform: scaleX(1); } }
-@keyframes beam-out { to { transform: rotate(var(--a)) scaleX(1); } }
+@keyframes slash { to { clip-path: inset(0 0 0 0); } }
+@keyframes bands-shoot { from { clip-path: inset(0 50% 0 50%); } to { clip-path: inset(0 0 0 50%); } }
+@keyframes bands-widen { from { clip-path: inset(0 0 0 50%); } to { height: var(--fill, 300vmax); clip-path: inset(0 0 0 0); } }
 @keyframes intro-out { from { clip-path: inset(0 0 0 0); } to { clip-path: inset(0 0 100% 0); visibility: hidden; } }
 
 @media (prefers-reduced-motion: reduce) { html.intro-on .intro { display: none; } html.intro-on body { overflow: auto; } }
