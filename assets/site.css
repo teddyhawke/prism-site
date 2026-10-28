@@ -124,7 +124,7 @@ h1, h2, h3 { font-family: var(--font); font-weight: 600; margin: 0; letter-spaci
 .btn-solid:hover { background: #262626; border-color: #262626; }
 .on-dark .btn-solid { background: var(--white); color: var(--black); border-color: var(--white); }
 .on-dark .btn-solid:hover { background: var(--concrete); border-color: var(--concrete); }
-/* Buttons carry the same corner at small scale: RGB on solid buttons, a plain slice on outline ones.
+/* Buttons carry the same corner at small scale as a plain slice, no colour.
    Painted in the surface colour (--bg) rather than clipped, so the bands can sit in the cut. */
 .btn-cut { position: relative; }
 .btn-cut::after {
@@ -132,14 +132,7 @@ h1, h2, h3 { font-family: var(--font); font-weight: 600; margin: 0; letter-spaci
   width: 24px; height: 11px;
   background: linear-gradient(to bottom left, var(--bg) 50%, transparent 50%);
 }
-.btn-solid.btn-cut::after {
-  width: 34px; height: 16px;
-  background: linear-gradient(to bottom left,
-    var(--bg) 0 5%, var(--red) 5% 17%, var(--bg) 17% 21%,
-    var(--green) 21% 33%, var(--bg) 33% 37%, var(--blue) 37% 49%,
-    var(--bg) 49% 50%, transparent 50%);
-}
-.nav .btn-solid.btn-cut::after { width: 28px; height: 13px; }
+
 .nav .btn { min-height: 40px; padding: 0 16px; font-size: 0.95rem; }
 
 /* Mobile thumb-zone call to action */
