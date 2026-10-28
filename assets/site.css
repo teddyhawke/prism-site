@@ -305,7 +305,8 @@ button.tile { appearance: none; border: 0; padding: 0; background: none; text-al
 .verticals .tile-play { left: 8px; bottom: 8px; width: 38px; height: 38px; }
 .verticals .tile-play::after { left: 14px; top: 11px; width: 12px; height: 16px; }
 .text-link { appearance: none; border: 0; background: none; padding: 0; font: inherit; color: inherit; text-decoration: underline; cursor: pointer; }
-.slate-links { display: inline-flex; gap: 18px; flex-wrap: wrap; }
+.slate-links { display: inline-flex; gap: 6px 18px; flex-wrap: wrap; justify-content: flex-end; }
+@media (max-width: 759px) { .slate-links { justify-content: flex-start; } }
 
 /* Video lightbox */
 .player { border: 0; padding: 0; background: transparent; width: min(1100px, 100vw); max-width: 100vw; }
@@ -356,7 +357,12 @@ button.tile { appearance: none; border: 0; padding: 0; background: none; text-al
 .slate { display: grid; gap: 0; border-top: 1px solid var(--black); }
 .slate-item { display: grid; gap: 8px; padding: 24px 0; border-bottom: 1px solid var(--line-light); }
 .slate-item .status { color: var(--graphite); font-size: 0.98rem; white-space: nowrap; }
-@media (min-width: 760px) { .slate-item { grid-template-columns: 1fr 2fr auto; align-items: baseline; gap: 32px; } }
+@media (min-width: 760px) {
+  /* Same three columns in every row so descriptions line up. */
+  .slate-item { grid-template-columns: minmax(0, 3fr) minmax(0, 6fr) minmax(0, 3fr); align-items: baseline; gap: 32px; }
+  .slate-item > :last-child { justify-self: end; text-align: right; }
+}
+.slate-item p { margin: 0; }
 
 /* ---------- Form ---------- */
 
