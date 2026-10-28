@@ -381,7 +381,9 @@ html.intro-on body { overflow: hidden; }
   box-shadow: 0 0 14px 2px rgba(255,255,255,0.6);
   transform-origin: 100% 50%; transform: rotate(var(--angle));
   clip-path: inset(0 100% 0 0);
-  animation: slash 0.24s cubic-bezier(.6,0,.3,1) 0.14s forwards;
+  animation:
+    slash 0.24s cubic-bezier(.6,0,.3,1) 0.14s forwards,
+    slash-out 0.26s cubic-bezier(.5,0,.3,1) 0.5s forwards;
 }
 
 /* The bands: three stacked stripes centred on the slash line.
@@ -404,6 +406,8 @@ html.intro-on body { overflow: hidden; }
 
 @keyframes intro-logo { to { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
 @keyframes slash { to { clip-path: inset(0 0 0 0); } }
+/* The light pulls through into the badge as the colours open up. */
+@keyframes slash-out { from { clip-path: inset(0 0 0 0); opacity: 1; } to { clip-path: inset(0 0 0 100%); opacity: 0; } }
 @keyframes bands-shoot { from { clip-path: inset(0 50% 0 50%); } to { clip-path: inset(0 0 0 50%); } }
 @keyframes bands-widen { from { clip-path: inset(0 0 0 50%); } to { height: var(--fill, 300vmax); clip-path: inset(0 0 0 0); } }
 @keyframes intro-out { from { clip-path: inset(0 0 0 0); } to { clip-path: inset(0 0 100% 0); visibility: hidden; } }
