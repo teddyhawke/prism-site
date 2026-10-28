@@ -549,7 +549,8 @@ article.promo[hidden] { display: none; }
 .founder-photo { position: relative; margin: 0; width: 100%; aspect-ratio: 4 / 5; overflow: hidden; --lx: 56px; background: #1a1a1a; }
 .founder-photo img { width: 100%; height: 100%; object-fit: cover; }
 .founder-name .h-md { font-size: clamp(1.5rem, 6.5vw, 2.4rem); }
-.founder-role { margin: 6px 0 0; }
+.founder-role { margin: 6px 0 0; font-size: clamp(0.84rem, 3.9vw, 1rem); line-height: 1.4; }
+@media (min-width: 860px) { .founder-role { font-size: 1.0625rem; } }
 .founder-text, .founder-credits { grid-column: 1 / -1; }
 .founder-credits .h-sm { margin-bottom: 12px; }
 .founder-credits .includes li { padding: 12px 0; }
@@ -562,3 +563,7 @@ article.promo[hidden] { display: none; }
 /* Closing call to action: headline and line beneath run as wide as the screen allows. */
 .cta-band .h-lg { max-width: none; text-wrap: balance; }
 .cta-band .lede { max-width: none; text-wrap: balance; }
+@media (max-width: 349px) {
+  .founder { grid-template-columns: 104px minmax(0, 1fr); }
+  .founder-role .nowrap-all { white-space: normal; }
+}
