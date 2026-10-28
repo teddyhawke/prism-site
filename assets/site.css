@@ -558,3 +558,7 @@ article.promo[hidden] { display: none; }
   .founder-photo { grid-row: 1 / span 3; --lx: 92px; }
   .founder-name, .founder-text, .founder-credits { grid-column: 2; }
 }
+
+/* Closing call to action: headline and line beneath run as wide as the screen allows. */
+.cta-band .h-lg { max-width: none; text-wrap: balance; }
+.cta-band .lede { max-width: none; text-wrap: balance; }
