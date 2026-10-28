@@ -23,10 +23,10 @@
   --max: 1240px;
   --measure: 34rem;
 
-  /* The cut: one angled top-right corner, taken from the logo badge. Same rule at every size:
-     buttons 14px, cards 32px, large frames 56px. */
-  --cut: 32px;
-  --cut-shape: polygon(0 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% 100%, 0 100%);
+  /* The refraction corner: the lower-left corner of a frame is sliced at the logo's stripe angle
+     and filled with red, green and blue light, as in the badge. --lx sets its width; height follows the angle. */
+  --lx: 120px;
+  --slope: 0.38;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -123,7 +123,8 @@ h1, h2, h3 { font-family: var(--font); font-weight: 600; margin: 0; letter-spaci
 .btn-solid:hover { background: #262626; border-color: #262626; }
 .on-dark .btn-solid { background: var(--white); color: var(--black); border-color: var(--white); }
 .on-dark .btn-solid:hover { background: var(--concrete); border-color: var(--concrete); }
-.btn-cut { --cut: 14px; clip-path: var(--cut-shape); }
+/* Buttons carry the same top-right slice, without the light. */
+.btn-cut { clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 7px, 100% 100%, 0 100%); }
 .nav .btn { min-height: 40px; padding: 0 16px; font-size: 0.95rem; }
 
 /* Mobile thumb-zone call to action */
@@ -162,16 +163,16 @@ body.has-thumb-cta { padding-bottom: calc(74px + env(safe-area-inset-bottom)); }
 .hero-grid { display: grid; gap: clamp(24px, 4vw, 40px); }
 .hero-window {
   position: relative; aspect-ratio: 4 / 3; width: 100%;
-  --cut: clamp(36px, 8vw, 56px); clip-path: var(--cut-shape); background: #111 var(--prism); overflow: hidden;
+  --lx: clamp(120px, 30vw, 220px); background: #111 var(--prism); overflow: hidden;
 }
 .hero-window video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-/* Placeholder light until the reel loop exists */
-.hero-window .light {
+/* Placeholder colour until a still or the reel loop replaces it */
+.hero-window .light-fill {
   position: absolute; inset: -40%;
   background: var(--prism);
 }
 @keyframes sweep { 0% { background-position: 120% 0, 0 0; } 60%, 100% { background-position: -60% 0, 0 0; } }
-@media (prefers-reduced-motion: reduce) { .hero-window .light { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .hero-window .light-fill { animation: none; } }
 
 .hero h1 { text-transform: uppercase; }
 .hero .lede { color: var(--ash); }
@@ -182,9 +183,23 @@ body.has-thumb-cta { padding-bottom: calc(74px + env(safe-area-inset-bottom)); }
   .hero-window { aspect-ratio: 5 / 6; }
 }
 
+/* ---------- Refraction corner ---------- */
+
+.light {
+  position: absolute; right: 0; top: 0; z-index: 2; pointer-events: none;
+  width: var(--lx); height: calc(var(--lx) * var(--slope));
+  /* "to bottom left" puts the 50% line exactly on the corner's diagonal, so the bands run parallel to the slice. */
+  background: linear-gradient(to bottom left,
+    var(--black) 0 4%, var(--red) 4% 14%, var(--black) 14% 19%,
+    var(--green) 19% 29%, var(--black) 29% 34%, var(--blue) 34% 44%,
+    var(--black) 44% 50%, transparent 50%);
+  transition: transform .35s cubic-bezier(.2,.8,.2,1); transform-origin: 100% 0;
+}
+.path:hover .light, .path:focus-visible .light { transform: scale(1.12); }
+
 /* ---------- Two paths ---------- */
 
-.paths { background: var(--prism); padding: clamp(40px, 8vw, 96px) 0; }
+.paths { background: var(--black); padding: clamp(8px, 2vw, 24px) 0 clamp(56px, 9vw, 104px); }
 .paths-grid { display: grid; gap: 18px; }
 .path {
   position: relative; display: block; text-decoration: none;
@@ -192,12 +207,12 @@ body.has-thumb-cta { padding-bottom: calc(74px + env(safe-area-inset-bottom)); }
   padding: clamp(28px, 6vw, 48px) clamp(22px, 5vw, 44px) clamp(26px, 5vw, 40px);
   min-height: 44px;
 }
-.path { clip-path: var(--cut-shape); }
-@media (max-width: 759px) { .path { --cut: 24px; } }
+.path { --lx: clamp(104px, 28vw, 150px); padding-top: calc(var(--lx) * var(--slope) + 6px); }
 .path .path-title { display: block; font-family: var(--font); font-weight: 700; font-size: clamp(1.75rem, 6.4vw, 2.75rem); line-height: 1; letter-spacing: -0.035em; max-width: 14ch; }
 .path .path-sub { display: block; margin-top: 14px; color: var(--graphite); font-size: 1.02rem; line-height: 1.45; max-width: 28rem; }
 .path .path-go { display: inline-block; margin-top: 22px; font-weight: 600; border-bottom: 2px solid var(--black); padding-bottom: 2px; }
 .path:hover .path-go { border-bottom-color: var(--red); }
+.path:nth-child(2):hover .path-go { border-bottom-color: var(--blue); }
 .path:active { transform: translateY(1px); }
 @media (min-width: 760px) { .paths-grid { grid-template-columns: 1fr 1fr; gap: 24px; } }
 

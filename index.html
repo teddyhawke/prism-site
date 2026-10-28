@@ -15,7 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="icon" href="assets/brand/prism-badge.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
-<link rel="stylesheet" href="assets/site.css?v=202610281312">
+<link rel="stylesheet" href="assets/site.css?v=202610281316">
 <script>
 /* Homepage intro plays once per visit; skipped for reduced-motion users. */
 try {
@@ -67,7 +67,8 @@ try {
 <section class="hero on-dark">
   <div class="wrap hero-grid">
     <div class="hero-window" aria-hidden="true">
-      <div class="light"></div>
+      <div class="light-fill"></div>
+      <span class="light" aria-hidden="true"></span>
       <!-- Reel loop goes here once cut:
       <video autoplay muted loop playsinline preload="metadata" poster="assets/reel-poster.jpg">
         <source src="assets/reel-loop.mp4" type="video/mp4">
@@ -85,17 +86,19 @@ try {
 
 <section class="paths" aria-labelledby="paths-h">
   <div class="wrap">
-    <h2 id="paths-h" class="h-sm" style="color:#fff;margin-bottom:20px">What brings you to Prism?</h2>
+    <h2 id="paths-h" class="h-sm" style="color:#fff;margin-bottom:24px">What brings you to Prism?</h2>
     <div class="paths-grid">
       <a class="path" href="produce.html">
         <span class="path-title">I need something produced</span>
         <span class="path-sub">Music videos, commercials, branded content, and production services for agencies.</span>
         <span class="path-go">See what we produce</span>
+        <span class="light" aria-hidden="true"></span>
       </a>
       <a class="path" href="develop.html">
         <span class="path-title">I have a story to develop</span>
         <span class="path-sub">Film, TV and narrative projects, from script to screen.</span>
         <span class="path-go">How we develop stories</span>
+        <span class="light" aria-hidden="true"></span>
       </a>
     </div>
   </div>
@@ -173,7 +176,7 @@ try {
   <button class="player-close" type="button">Close</button>
   <div class="player-frame"></div>
 </dialog>
-<script src="assets/site.js?v=202610281312" defer></script>
+<script src="assets/site.js?v=202610281316" defer></script>
 <script>document.querySelectorAll("[data-year]").forEach(function(e){e.textContent=new Date().getFullYear()});</script>
 <script type="text/javascript" async src="https://subscribe-forms.beehiiv.com/attribution.js"></script>
 </body>
