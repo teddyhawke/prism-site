@@ -216,19 +216,20 @@ body.has-thumb-cta { padding-bottom: calc(74px + env(safe-area-inset-bottom)); }
   background: linear-gradient(to top, rgba(0,0,0,.94) 0%, rgba(0,0,0,.62) 32%, rgba(0,0,0,0) 60%); }
 .hero-media .light { z-index: 2; }
 .hero-copy { position: relative; z-index: 3; padding-top: 30svh; padding-bottom: clamp(32px, 8vw, 96px); }
-.hero-copy .h-xl { max-width: 11ch; }
+.hero-copy .h-xl { max-width: 13ch; font-size: clamp(2.4rem, 10.6vw, 7rem); }
+@media (min-width: 860px) { .nowrap { white-space: nowrap; } }
 .hero .hero-copy .lede { color: rgba(255,255,255,.86); }
 .hero-credit { position: absolute; z-index: 3; right: var(--gutter); bottom: 14px; margin: 0;
   font-size: 0.78rem; color: rgba(255,255,255,.55); }
 @media (min-width: 860px) {
   /* Desktop: the picture sits on the right; the copy sits on black to its left. */
-  .hero-media { left: 32%; }
+  .hero-media { left: 40%; }
   .hero-media::after { background:
     linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,.55) 22%, rgba(0,0,0,0) 48%),
     linear-gradient(to top, rgba(0,0,0,.6) 0%, rgba(0,0,0,0) 35%); }
   .hero-media img { object-position: 50% 40%; }
   .hero-copy { padding-top: 22vh; }
-  .hero-copy .h-xl { font-size: clamp(3.5rem, 8.2vw, 8rem); }
+  .hero-copy .h-xl { font-size: clamp(3.2rem, 5.3vw, 5.8rem); max-width: 12ch; }
 }
 
 /* ---------- Two paths ---------- */
