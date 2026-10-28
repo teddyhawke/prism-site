@@ -2,6 +2,12 @@
 (function () {
   "use strict";
 
+  /* Clicking the header logo replays the intro on the homepage. */
+  var logo = document.querySelector(".site-header .logo");
+  if (logo) logo.addEventListener("click", function () {
+    try { sessionStorage.removeItem("prism-intro"); } catch (e) {}
+  });
+
   /* Homepage intro: remember it played, and let a tap or key skip it. */
   var intro = document.getElementById("intro");
   var root = document.documentElement;
