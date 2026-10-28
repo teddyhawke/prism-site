@@ -361,10 +361,17 @@ fieldset.field { border: 0; margin: 0; padding: 0; }
 html.intro-on .intro {
   display: block; position: fixed; inset: 0; z-index: 200;
   background: var(--black); overflow: hidden; cursor: pointer;
-  animation: intro-out 0.5s cubic-bezier(.7,0,.2,1) 1.05s forwards;
+  animation: intro-out 0.5s cubic-bezier(.7,0,.2,1) 1.8s forwards;
 }
 html.intro-on body { overflow: hidden; }
-.intro-stage { position: absolute; left: 50%; top: 46%; width: 0; height: 0; }
+.intro-stage { position: absolute; left: 50%; top: 46%; width: 0; height: 0; z-index: 1; }
+/* Colour fill: three rays from the badge that widen until they cover the screen.
+   Shapes are set in px by the inline script on the homepage. */
+.intro-fill { position: absolute; inset: 0; z-index: 0; }
+.wedge { position: absolute; inset: 0; clip-path: polygon(50% 46%, 50% 46%, 50% 46%); }
+.wedge.r { background: var(--red); }
+.wedge.g { background: var(--green); }
+.wedge.b { background: var(--blue); }
 .intro-logo {
   position: absolute; width: clamp(96px, 26vw, 150px); max-width: none; height: auto;
   left: 0; top: 0; transform: translate(-50%, -50%) scale(0.9);
