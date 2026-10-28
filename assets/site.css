@@ -270,10 +270,18 @@ body.has-thumb-cta { padding-bottom: calc(74px + env(safe-area-inset-bottom)); }
 .poster.p1 { background: linear-gradient(160deg, #2b0710, #ea2244 140%); }
 .poster.p2 { background: linear-gradient(200deg, #070a2b, #3a43e8 150%); }
 .poster.p3 { background: linear-gradient(140deg, #0b1a05, #6bd32b 170%); }
+button.tile-frame { appearance: none; border: 0; padding: 0; width: 100%; cursor: pointer; font: inherit; color: inherit; text-align: left; }
+.tile-frame .poster { z-index: 0; }
+.tile-frame img { z-index: 1; }
 .tile-play {
-  position: absolute; right: 14px; top: 14px; width: 44px; height: 44px;
-  background: var(--white); clip-path: polygon(0 0, 100% 50%, 0 100%); transform: scale(0.6); transform-origin: center;
+  position: absolute; left: 12px; bottom: 12px; z-index: 3; width: 46px; height: 46px;
+  background: rgba(0,0,0,.72); transition: background .2s;
 }
+.tile-play::after {
+  content: ""; position: absolute; left: 17px; top: 14px; width: 15px; height: 18px;
+  background: var(--white); clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+button.tile-frame:hover .tile-play, button.tile-frame:focus-visible .tile-play { background: var(--black); }
 .tile-meta { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; margin-top: 12px; }
 .tile-title { font-family: var(--font); font-weight: 600; font-size: 1.2rem; letter-spacing: -0.02em; }
 .tile-kind { color: var(--graphite); font-size: 0.95rem; white-space: nowrap; }
@@ -288,6 +296,15 @@ button.tile { appearance: none; border: 0; padding: 0; background: none; text-al
   min-height: 44px; padding: 0 18px; font: 500 0.98rem/1 var(--font); cursor: pointer;
 }
 .chip[aria-pressed="true"] { background: var(--black); color: var(--white); }
+
+.verticals-wrap { grid-column: 1 / -1; }
+.verticals-label { color: var(--graphite); font-size: 0.98rem; margin: 8px 0 12px; }
+.verticals { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 560px; }
+.verticals .tile-frame.vertical { max-height: none; }
+.verticals .tile-play { left: 8px; bottom: 8px; width: 38px; height: 38px; }
+.verticals .tile-play::after { left: 14px; top: 11px; width: 12px; height: 16px; }
+.text-link { appearance: none; border: 0; background: none; padding: 0; font: inherit; color: inherit; text-decoration: underline; cursor: pointer; }
+.slate-links { display: inline-flex; gap: 18px; flex-wrap: wrap; }
 
 /* Video lightbox */
 .player { border: 0; padding: 0; background: transparent; width: min(1100px, 100vw); max-width: 100vw; }
@@ -468,3 +485,6 @@ html.intro-on body { overflow: hidden; }
 /* Phone call-to-action bar: white button on black, like the header, so its light corner reads. */
 .thumb-cta .btn-solid { background: var(--white); color: var(--black); border-color: var(--white); }
 .thumb-cta .btn-solid:hover { background: var(--concrete); border-color: var(--concrete); }
+
+/* Keep placeholder titles clear of the play button */
+button.tile-frame .poster { padding-bottom: 72px; }
