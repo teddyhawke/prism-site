@@ -489,3 +489,5 @@ html.intro-on body { overflow: hidden; }
 
 /* Keep placeholder titles clear of the play button */
 button.tile-frame .poster { padding-bottom: 72px; }
+.nowrap-all { white-space: nowrap; }
+.hero-copy .h-xl { max-width: 8ch; }
