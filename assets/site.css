@@ -498,14 +498,35 @@ a.tile-frame:hover .light, a.tile-frame:focus-visible .light { transform: scale(
 .work-group[hidden] { display: none; }
 .promo-group { margin-top: clamp(56px, 9vw, 96px); }
 .promo-head { margin-bottom: 24px; }
-.promo-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px 12px; }
-@media (min-width: 640px) { .promo-grid { grid-template-columns: repeat(3, 1fr); gap: 32px 20px; } }
-@media (min-width: 1000px) { .promo-grid { grid-template-columns: repeat(6, 1fr); gap: 32px 16px; } }
-.promo .tile-frame.vertical { aspect-ratio: 9 / 16; max-height: none; --lx: clamp(60px, 16vw, 84px); }
-.promo .tile-frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.promo .tile-frame .yt-thumb { z-index: 1; }
-.promo .tile-play { left: 8px; bottom: 8px; width: 38px; height: 38px; }
-.promo .tile-play::after { left: 14px; top: 11px; width: 12px; height: 16px; }
-.promo-title { display: block; margin-top: 10px; font-family: var(--font); font-weight: 600; font-size: 1rem; letter-spacing: -0.01em; line-height: 1.25; }
-.promo-sub { display: block; color: var(--graphite); font-size: 0.9rem; line-height: 1.35; margin-top: 2px; }
+.promo-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px 14px; align-items: start; }
+@media (min-width: 760px) { .promo-grid { grid-template-columns: repeat(3, 1fr); gap: 36px 24px; } }
+@media (min-width: 1100px) { .promo-grid { grid-template-columns: repeat(4, 1fr); } }
 article.promo[hidden] { display: none; }
+.promo .tile-frame.vertical { aspect-ratio: 9 / 16; max-height: none; --lx: clamp(64px, 16vw, 96px); }
+.promo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.promo .yt-thumb { z-index: 1; }
+
+/* The open/close control on each card: a plus that turns into a cross. */
+.promo-toggle { position: absolute; left: 10px; bottom: 10px; z-index: 3; width: 44px; height: 44px; background: rgba(0,0,0,.72); transition: background .2s; }
+.promo-toggle::before, .promo-toggle::after { content: ""; position: absolute; left: 13px; top: 21px; width: 18px; height: 2px; background: var(--white); transition: transform .25s cubic-bezier(.2,.8,.2,1); }
+.promo-toggle::after { transform: rotate(90deg); }
+.promo-card:hover .promo-toggle, .promo-card:focus-visible .promo-toggle { background: var(--black); }
+.promo-card[aria-expanded="true"] .promo-toggle::before { transform: rotate(45deg); }
+.promo-card[aria-expanded="true"] .promo-toggle::after { transform: rotate(135deg); }
+
+.promo-title { display: block; margin-top: 10px; font-family: var(--font); font-weight: 600; font-size: 1.05rem; letter-spacing: -0.01em; line-height: 1.25; }
+.promo-sub { display: block; color: var(--graphite); font-size: 0.92rem; line-height: 1.35; margin-top: 2px; }
+
+.promo-list { list-style: none; margin: 14px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+  animation: promo-open .28s cubic-bezier(.2,.8,.2,1); }
+.promo-list[hidden] { display: none; }
+@keyframes promo-open { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .promo-list { animation: none; } }
+.promo-clip { appearance: none; border: 0; background: none; padding: 0; width: 100%; cursor: pointer; font: inherit; color: inherit; text-align: left; }
+.promo-clip-frame { display: block; position: relative; aspect-ratio: 9 / 16; overflow: hidden; background: #1a1a1a; }
+.promo-clip .tile-play { left: 4px; bottom: 4px; width: 26px; height: 26px; }
+.promo-clip .tile-play::after { left: 9px; top: 7px; width: 9px; height: 12px; }
+.promo-clip:hover .tile-play, .promo-clip:focus-visible .tile-play { background: var(--black); }
+.promo-clip-label { display: block; margin-top: 4px; font-size: 0.82rem; color: var(--graphite); }
+
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }

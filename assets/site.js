@@ -53,6 +53,18 @@
     });
   });
 
+  /* Vertical promo: one card per project opens a list of its videos. */
+  document.querySelectorAll(".promo-card").forEach(function (card) {
+    var list = document.getElementById(card.getAttribute("aria-controls"));
+    if (!list) return;
+    card.addEventListener("click", function () {
+      var open = card.getAttribute("aria-expanded") !== "true";
+      card.setAttribute("aria-expanded", open ? "true" : "false");
+      list.hidden = !open;
+      if (open) { var first = list.querySelector("button"); if (first) first.focus({ preventScroll: true }); }
+    });
+  });
+
   /* Video player: tiles load the embed only when tapped, so pages stay fast on phones. */
   var player = document.getElementById("player");
   if (player && typeof player.showModal === "function") {
