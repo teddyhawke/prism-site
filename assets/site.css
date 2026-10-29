@@ -203,7 +203,9 @@ body.has-thumb-cta { padding-bottom: calc(74px + env(safe-area-inset-bottom)); }
     var(--bg) 44% 50%, transparent 50%);
   transition: transform .35s cubic-bezier(.2,.8,.2,1); transform-origin: 100% 0;
 }
-.path:hover .light, .path:focus-visible .light, .tile:hover .light { transform: scale(1.12); }
+/* Any clickable frame with a light corner: the corner grows on hover or keyboard focus. */
+.path:hover .light, .path:focus-visible .light, .tile:hover .light,
+.tile-frame:is(a, button):hover .light, .tile-frame:is(a, button):focus-visible .light { transform: scale(1.12); }
 .tile-frame { --lx: clamp(88px, 24vw, 124px); }
 
 /* ---------- Full-bleed hero ---------- */
@@ -498,7 +500,6 @@ button.tile-frame .poster { padding-bottom: 72px; }
 .nowrap-all { white-space: nowrap; }
 .hero-copy .h-xl { max-width: 8ch; }
 a.tile-frame { color: inherit; text-decoration: none; }
-a.tile-frame:hover .light, a.tile-frame:focus-visible .light { transform: scale(1.12); }
 
 /* ---------- Vertical promo ---------- */
 .work-group[hidden] { display: none; }
