@@ -38,6 +38,18 @@
     });
   }
 
+  /* Newsletter: if beehiiv's form hasn't appeared after a few seconds, show a plain signup link instead of an empty gap. */
+  var signup = document.querySelector(".signup-form");
+  var fallback = document.querySelector(".signup-fallback");
+  if (signup && fallback) {
+    setTimeout(function () {
+      var rendered = Array.prototype.some.call(signup.children, function (el) {
+        return el.tagName !== "SCRIPT" && el.getBoundingClientRect().height > 10;
+      });
+      if (!rendered) { signup.style.minHeight = "0"; fallback.hidden = false; }
+    }, 4000);
+  }
+
   /* Work filters */
   var chips = document.querySelectorAll("[data-filter]");
   chips.forEach(function (chip) {
