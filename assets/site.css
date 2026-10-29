@@ -578,5 +578,3 @@ article.promo[hidden] { display: none; }
 .proof-line { margin-top: 16px; color: var(--graphite); }
 .proof-line a { color: var(--black); }
 
-.signup-fallback { margin-top: 20px; }
-.signup-fallback[hidden] { display: none; }
