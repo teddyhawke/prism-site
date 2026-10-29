@@ -607,3 +607,13 @@ article.promo[hidden] { display: none; }
 
 .proof-line .proof-link { color: var(--black); margin-left: 6px; }
 .tile-note .text-link { color: inherit; }
+
+/* Client tiles on Work that open a list of widescreen videos */
+.tile .promo-list.wide { grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 14px; }
+.promo-list.wide .promo-clip-frame { aspect-ratio: 16 / 9; }
+.promo-list.wide .promo-clip-frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.promo-list.wide .poster { font-size: 0.95rem; padding: 10px; padding-bottom: 40px; }
+.promo-list.wide .promo-clip-label { font-size: 0.85rem; white-space: normal; }
+.tile .promo-card { cursor: pointer; }
+.tile .promo-card .promo-toggle { left: 12px; bottom: 12px; }
+.promo-clip-frame .poster { position: absolute; inset: 0; display: flex; align-items: flex-end; padding: 10px 10px 40px; color: var(--white); font-family: var(--font); font-weight: 700; font-size: 1rem; letter-spacing: -0.02em; line-height: 1.05; }
