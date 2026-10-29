@@ -617,3 +617,6 @@ article.promo[hidden] { display: none; }
 .tile .promo-card { cursor: pointer; }
 .tile .promo-card .promo-toggle { left: 12px; bottom: 12px; }
 .promo-clip-frame .poster { position: absolute; inset: 0; display: flex; align-items: flex-end; padding: 10px 10px 40px; color: var(--white); font-family: var(--font); font-weight: 700; font-size: 1rem; letter-spacing: -0.02em; line-height: 1.05; }
+/* Longer kind labels wrap and stay right-aligned instead of crowding the title */
+.tile-kind { text-align: right; }
+@media (max-width: 480px) { .tile-meta { flex-wrap: wrap; } .tile-kind { white-space: normal; text-align: left; flex-basis: 100%; margin-top: -4px; } }
