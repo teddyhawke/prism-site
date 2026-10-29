@@ -102,7 +102,9 @@
       var f = chip.getAttribute("data-filter");
       chips.forEach(function (c) { c.setAttribute("aria-pressed", c === chip ? "true" : "false"); });
       document.querySelectorAll("[data-kind]").forEach(function (item) {
-        item.hidden = !(f === "all" || item.getAttribute("data-kind") === f);
+        // An item can belong to several filters, e.g. data-kind="promo music".
+        var kinds = (item.getAttribute("data-kind") || "").split(" ");
+        item.hidden = !(f === "all" || kinds.indexOf(f) > -1);
       });
       document.querySelectorAll("[data-group]").forEach(function (g) {
         g.hidden = !g.querySelector("[data-kind]:not([hidden])");
