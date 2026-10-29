@@ -164,6 +164,8 @@ body.has-thumb-cta { padding-bottom: calc(74px + env(safe-area-inset-bottom)); }
 
 .stack > * + * { margin-top: 20px; }
 .section-head { display: grid; gap: 16px; margin-bottom: clamp(32px, 6vw, 56px); }
+/* Short intro lines under section headings run on one line when there's room, and wrap evenly on phones. */
+.section-head p { max-width: none; margin: 0; text-wrap: balance; }
 
 /* ---------- Home hero ---------- */
 
