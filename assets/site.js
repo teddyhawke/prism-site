@@ -38,15 +38,19 @@
     });
   }
 
-  /* Newsletter: beehiiv hides its form from people who've already subscribed in this browser.
-     If no form has appeared after a few seconds, close up the empty space it would have taken. */
+  /* Newsletter: beehiiv hides its form from people who already subscribed in this browser, and it can
+     occasionally fail to load. Either way, after a few seconds without a form, show a "Go to newsletter" button. */
   var signup = document.querySelector(".signup-form");
+  var fallback = document.querySelector(".signup-fallback");
   if (signup) {
     setTimeout(function () {
       var rendered = Array.prototype.some.call(signup.children, function (el) {
         return el.tagName !== "SCRIPT" && el.getBoundingClientRect().height > 10;
       });
-      if (!rendered) signup.style.minHeight = "0";
+      if (!rendered) {
+        signup.style.minHeight = "0";
+        if (fallback) fallback.hidden = false;
+      }
     }, 4000);
   }
 
