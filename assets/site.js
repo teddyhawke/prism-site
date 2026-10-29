@@ -161,10 +161,10 @@
     var ENDPOINT = form.getAttribute("data-endpoint") || "";
 
     // Preselect project type from links like start.html?type=music
-    // Links from the Produce page name the package, e.g. start.html?type=brand&about=Branded%20Vertical%20Series
+    // "Ask about" links name the package or service, e.g. start.html?type=development&about=Pitch%20Deck. It goes in the "Anything else" box.
     var about = new URLSearchParams(location.search).get("about");
-    if (about && form.elements.deliverables && !form.elements.deliverables.value) {
-      form.elements.deliverables.value = about.slice(0, 60) + ": ";
+    if (about && form.elements.message && !form.elements.message.value) {
+      form.elements.message.value = "Asking about: " + about.slice(0, 60) + "\n";
     }
     var type = new URLSearchParams(location.search).get("type");
     if (type) {
