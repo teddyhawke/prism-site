@@ -581,3 +581,5 @@ article.promo[hidden] { display: none; }
 
 .signup-fallback { margin-top: 20px; }
 .signup-fallback[hidden] { display: none; }
+/* Produce headline: break only between phrases, never inside one. */
+.intro .produce-h { max-width: none; }
