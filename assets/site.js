@@ -54,6 +54,28 @@
     }, 4000);
   }
 
+  /* Produce mosaic: every couple of seconds, sweep a sheen across a random tile (never the same one twice in a row).
+     Runs only while the mosaic is on screen and the tab is visible; off for reduced motion. */
+  var mosaic = document.querySelector(".mosaic");
+  if (mosaic && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    var tilesEls = mosaic.querySelectorAll(".mosaic-tile"), last = -1, timer = null, onScreen = true;
+    var shine = function () {
+      if (!onScreen || document.hidden || !tilesEls.length) return;
+      var i; do { i = Math.floor(Math.random() * tilesEls.length); } while (i === last && tilesEls.length > 1);
+      last = i;
+      var t = tilesEls[i];
+      t.classList.remove("shine"); void t.offsetWidth; t.classList.add("shine");
+      setTimeout(function () { t.classList.remove("shine"); }, 1200);
+    };
+    var start = function () { if (!timer) { timer = setInterval(shine, 2400); setTimeout(shine, 600); } };
+    var stop = function () { clearInterval(timer); timer = null; };
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (entries) {
+        onScreen = entries[0].isIntersecting; onScreen ? start() : stop();
+      }).observe(mosaic);
+    } else { start(); }
+  }
+
   /* Work filters */
   var chips = document.querySelectorAll("[data-filter]");
   chips.forEach(function (chip) {

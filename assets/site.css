@@ -586,15 +586,21 @@ article.promo[hidden] { display: none; }
 
 /* ---------- Produce intro: headline + mosaic of frames ---------- */
 .produce-intro-grid { display: grid; gap: 32px; align-items: center; }
-.mosaic { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; --lx: clamp(70px, 18vw, 120px); --bg: var(--black); }
+.mosaic { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
 .mosaic-tile { position: relative; display: block; aspect-ratio: 1; overflow: hidden; background: #161616; }
 .mosaic-tile img, .mosaic-tile video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .5s cubic-bezier(.2,.8,.2,1), filter .3s; }
 .mosaic:hover .mosaic-tile img, .mosaic:hover .mosaic-tile video { filter: brightness(.8); }
 .mosaic .mosaic-tile:hover img, .mosaic .mosaic-tile:hover video { transform: scale(1.06); filter: none; }
-.mosaic .light { z-index: 2; }
-.mosaic:hover .light, .mosaic:focus-visible .light { transform: scale(1.12); }
+/* Sheen: a band of light sweeps across one tile at a time (picked at random by site.js). */
+.mosaic-tile::after {
+  content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,.1) 42%, rgba(255,255,255,.5) 50%, rgba(255,255,255,.1) 58%, transparent 70%);
+  transform: translateX(-120%);
+}
+.mosaic-tile.shine::after { animation: tile-sheen 1.1s cubic-bezier(.4,0,.2,1); }
+@keyframes tile-sheen { from { transform: translateX(-120%); } to { transform: translateX(120%); } }
 @media (min-width: 900px) {
   .produce-intro-grid { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 48px; }
   .produce-intro .produce-h { font-size: clamp(2.6rem, 4.6vw, 4.4rem); }
 }
-@media (prefers-reduced-motion: reduce) { .mosaic-tile video { display: none; } .mosaic-tile:has(video) { background-size: cover; } }
+@media (prefers-reduced-motion: reduce) { .mosaic-tile::after { display: none; } .mosaic-tile video { display: none; } .mosaic-tile:has(video) { background-size: cover; } }
