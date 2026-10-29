@@ -570,3 +570,10 @@ article.promo[hidden] { display: none; }
   .founder { grid-template-columns: 104px minmax(0, 1fr); }
   .founder-role .nowrap-all { white-space: normal; }
 }
+
+/* Produce page: example list and proof line inside a package */
+.examples-label { margin: 18px 0 6px; font-family: var(--font); font-weight: 600; }
+.examples { margin: 0; padding-left: 1.1em; max-width: var(--measure); }
+.examples li { margin-bottom: 4px; }
+.proof-line { margin-top: 16px; color: var(--graphite); }
+.proof-line a { color: var(--black); }

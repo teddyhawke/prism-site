@@ -53,6 +53,11 @@
     });
   });
 
+  /* Work page: a #music, #brand, #narrative or #promo link opens with that filter on. */
+  if (location.hash && document.querySelector('[data-filter="' + location.hash.slice(1) + '"]')) {
+    document.querySelector('[data-filter="' + location.hash.slice(1) + '"]').click();
+  }
+
   /* Vertical promo: one card per project opens a list of its videos. */
   document.querySelectorAll(".promo-card").forEach(function (card) {
     var list = document.getElementById(card.getAttribute("aria-controls"));
@@ -97,6 +102,11 @@
     var ENDPOINT = form.getAttribute("data-endpoint") || "";
 
     // Preselect project type from links like start.html?type=music
+    // Links from the Produce page name the package, e.g. start.html?type=brand&about=Branded%20Vertical%20Series
+    var about = new URLSearchParams(location.search).get("about");
+    if (about && form.elements.deliverables && !form.elements.deliverables.value) {
+      form.elements.deliverables.value = about.slice(0, 60) + ": ";
+    }
     var type = new URLSearchParams(location.search).get("type");
     if (type) {
       var match = form.querySelector('input[name="project_type"][value="' + type + '"]');
