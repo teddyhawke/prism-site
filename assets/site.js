@@ -54,26 +54,45 @@
     }, 4000);
   }
 
-  /* Produce mosaic: every couple of seconds, sweep a sheen across a random tile (never the same one twice in a row).
-     Runs only while the mosaic is on screen and the tab is visible; off for reduced motion. */
+  /* Produce mosaic: tiles rest on a still frame.
+     - Hover (mouse): the tile under the cursor plays its loop; leaving pauses and rewinds it.
+     - Every couple of seconds a sheen sweeps across a random tile to invite a hover.
+     - Touch screens (no hover): the tile that gets the sheen also plays through once.
+     Runs only while the mosaic is on screen and the tab is visible; no motion for reduced-motion users. */
   var mosaic = document.querySelector(".mosaic");
-  if (mosaic && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    var tilesEls = mosaic.querySelectorAll(".mosaic-tile"), last = -1, timer = null, onScreen = true;
-    var shine = function () {
-      if (!onScreen || document.hidden || !tilesEls.length) return;
-      var i; do { i = Math.floor(Math.random() * tilesEls.length); } while (i === last && tilesEls.length > 1);
-      last = i;
-      var t = tilesEls[i];
-      t.classList.remove("shine"); void t.offsetWidth; t.classList.add("shine");
-      setTimeout(function () { t.classList.remove("shine"); }, 1200);
-    };
-    var start = function () { if (!timer) { timer = setInterval(shine, 2400); setTimeout(shine, 600); } };
-    var stop = function () { clearInterval(timer); timer = null; };
-    if ("IntersectionObserver" in window) {
-      new IntersectionObserver(function (entries) {
-        onScreen = entries[0].isIntersecting; onScreen ? start() : stop();
-      }).observe(mosaic);
-    } else { start(); }
+  if (mosaic) {
+    var tilesEls = mosaic.querySelectorAll(".mosaic-tile");
+    var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var canHover = matchMedia("(hover: hover)").matches;
+    var playTile = function (t) { var v = t.querySelector("video"); if (v) { var p = v.play(); if (p && p.catch) p.catch(function () {}); } };
+    var stopTile = function (t) { var v = t.querySelector("video"); if (v) { v.pause(); v.currentTime = 0; } };
+
+    if (!reduce && canHover) {
+      tilesEls.forEach(function (t) {
+        t.addEventListener("mouseenter", function () { playTile(t); });
+        t.addEventListener("mouseleave", function () { stopTile(t); });
+      });
+    }
+
+    if (!reduce) {
+      var last = -1, timer = null, onScreen = true;
+      var shine = function () {
+        if (!onScreen || document.hidden || !tilesEls.length) return;
+        var i; do { i = Math.floor(Math.random() * tilesEls.length); } while (i === last && tilesEls.length > 1);
+        last = i;
+        var t = tilesEls[i];
+        t.classList.remove("shine"); void t.offsetWidth; t.classList.add("shine");
+        setTimeout(function () { t.classList.remove("shine"); }, 1200);
+        if (!canHover) { playTile(t); setTimeout(function () { stopTile(t); }, 2600); }
+      };
+      var start = function () { if (!timer) { timer = setInterval(shine, canHover ? 2400 : 3000); setTimeout(shine, 600); } };
+      var stop = function () { clearInterval(timer); timer = null; };
+      if ("IntersectionObserver" in window) {
+        new IntersectionObserver(function (entries) {
+          onScreen = entries[0].isIntersecting; onScreen ? start() : stop();
+        }).observe(mosaic);
+      } else { start(); }
+    }
   }
 
   /* Work filters */
