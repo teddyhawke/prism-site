@@ -604,3 +604,6 @@ article.promo[hidden] { display: none; }
   .produce-intro .produce-h { font-size: clamp(2.6rem, 4.6vw, 4.4rem); }
 }
 @media (prefers-reduced-motion: reduce) { .mosaic-tile::after { display: none; } .mosaic-tile video { display: none; } .mosaic-tile:has(video) { background-size: cover; } }
+
+.proof-line .proof-link { color: var(--black); margin-left: 6px; }
+.tile-note .text-link { color: inherit; }
