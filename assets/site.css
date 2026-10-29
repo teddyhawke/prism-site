@@ -620,3 +620,4 @@ article.promo[hidden] { display: none; }
 /* Longer kind labels wrap and stay right-aligned instead of crowding the title */
 .tile-kind { text-align: right; }
 @media (max-width: 480px) { .tile-meta { flex-wrap: wrap; } .tile-kind { white-space: normal; text-align: left; flex-basis: 100%; margin-top: -4px; } }
+.hero-credit a { color: inherit; }
