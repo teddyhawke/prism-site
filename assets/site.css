@@ -587,7 +587,7 @@ article.promo[hidden] { display: none; }
 /* ---------- Produce intro: headline + mosaic of frames ---------- */
 .produce-intro-grid { display: grid; gap: 32px; align-items: center; }
 .mosaic { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
-.mosaic-tile { position: relative; display: block; aspect-ratio: 1; overflow: hidden; background: #161616; }
+.mosaic-tile { position: relative; display: block; aspect-ratio: 1; overflow: hidden; background: #161616 center / cover no-repeat; }
 .mosaic-tile img, .mosaic-tile video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .5s cubic-bezier(.2,.8,.2,1), filter .3s; }
 .mosaic:hover .mosaic-tile img, .mosaic:hover .mosaic-tile video { filter: brightness(.8); }
 .mosaic .mosaic-tile:hover img, .mosaic .mosaic-tile:hover video { transform: scale(1.06); filter: none; }
