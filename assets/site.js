@@ -200,6 +200,29 @@
     });
     fitAll();
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitAll);
+
+    /* Drop-off counts (GoatCounter, no cookies). Only counts are sent, never anything typed:
+       "inquiry-started" on the first answer, "inquiry-sent" on success, and if someone leaves
+       without sending, which blank they stopped at and how many of the blanks they had filled. */
+    var track = function (name) {
+      try { if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: name, title: name, event: true }); } catch (e) {}
+    };
+    var BLANK_NAMES = { firstname: "first-name", lastname: "last-name", company: "company", project_type: "project-type",
+      deliverables: "what-you-need", timing: "timeline", budget_range: "budget", email: "email" };
+    var progress = { started: false, sent: false, reported: false };
+    form.addEventListener("input", function () { if (!progress.started) { progress.started = true; track("inquiry-started"); } });
+    form.addEventListener("change", function () { if (!progress.started) { progress.started = true; track("inquiry-started"); } });
+    var reportDrop = function () {
+      if (!progress.started || progress.sent || progress.reported) return;
+      progress.reported = true;
+      // "Stopped at" is the blank right after the furthest one they answered (some blanks are optional).
+      var filled = 0, last = -1;
+      blanks.forEach(function (el, i) { if (el.value.trim()) { filled++; last = i; } });
+      var next = blanks[last + 1], stop = next ? (BLANK_NAMES[next.name] || next.name) : null;
+      track("inquiry-stopped-at-" + (stop || "send-button"));
+      track("inquiry-filled-" + filled + "-of-" + blanks.length);
+    };
+    window.addEventListener("pagehide", reportDrop);
     window.addEventListener("resize", fitAll);
 
     var fail = function (el, msg) {
@@ -229,6 +252,7 @@
       var submit = form.querySelector('button[type="submit"]');
       var done = document.getElementById("form-done");
       var finish = function () {
+        progress.sent = true; track("inquiry-sent");
         var hit = done.querySelector(".done-hit");
         var swap = function () {
           form.hidden = true; done.hidden = false;
