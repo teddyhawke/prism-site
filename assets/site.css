@@ -690,3 +690,5 @@ select.blank option { color: var(--black); background: var(--white); }
 .on-dark .form-done { background: #111; border-left: 4px solid var(--green); }
 .madlib .nw { white-space: nowrap; }
 .madlib .nw .blank { max-width: calc(100% - 0.4em); }
+.madlib p { margin: 0; max-width: none; }
+.madlib p + p { margin-top: 0.7em; }

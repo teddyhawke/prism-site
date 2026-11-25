@@ -188,7 +188,7 @@
       blanks.forEach(function (el) {
         if (!el.dataset.short) return;
         if (!el.dataset.long) el.dataset.long = el.placeholder;
-        el.placeholder = el.parentNode.parentNode.clientWidth < 520 ? el.dataset.short : el.dataset.long;
+        el.placeholder = el.closest(".madlib").clientWidth < 520 ? el.dataset.short : el.dataset.long;
       });
       blanks.forEach(fit);
     };

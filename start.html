@@ -27,7 +27,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="icon" href="assets/brand/prism-badge.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
-<link rel="stylesheet" href="assets/site.css?v=202611242200">
+<link rel="stylesheet" href="assets/site.css?v=202611242150">
 </head>
 <body class="">
 <a class="skip" href="#main">Skip to content</a>
@@ -65,12 +65,12 @@
     <div>
     <form class="form madlib-form" id="inquiry" novalidate data-endpoint="https://api.hsforms.com/submissions/v3/integration/submit/247829040/0a9617ae-748a-4ebd-85f6-429ed199c731">
       <div class="madlib">
-        Hi, my name is
+        <p>Hi, my name is
         <input class="blank" id="f-first" name="firstname" placeholder="first name" aria-label="First name" autocomplete="given-name" aria-describedby="e-first" style="--accent: var(--red)">
         <input class="blank" id="f-last" name="lastname" placeholder="last name" aria-label="Last name" autocomplete="family-name" style="--accent: var(--red)">
         and I&rsquo;m with
-        <span class="nw"><input class="blank" id="f-company" name="company" placeholder="company, artist or project" aria-label="Company, artist or project name" autocomplete="organization" style="--accent: var(--green)">.</span>
-        I&rsquo;m looking for
+        <span class="nw"><input class="blank" id="f-company" name="company" placeholder="company, artist or project" data-short="company or artist" aria-label="Company, artist or project name" autocomplete="organization" style="--accent: var(--green)">.</span></p>
+        <p>I&rsquo;m looking for
         <span class="nw"><select class="blank" id="f-type" name="project_type" aria-label="What kind of project?" aria-describedby="type-error" style="--accent: var(--blue)">
           <option value="">pick a project type</option>
           <option value="brand">commercial or branded content</option>
@@ -81,7 +81,7 @@
         </select>,</span>
         specifically
         <span class="nw"><input class="blank" id="f-deliverables" name="deliverables" placeholder="what you need made" aria-label="What do you need made?" style="--accent: var(--red)">.</span>
-        I need it
+        <span class="nw">I need it</span>
         <select class="blank" id="f-timing" name="timing" aria-label="When do you need it?" style="--accent: var(--green)">
           <option value="">pick a timeline</option>
           <option value="Within 4 weeks">within 4 weeks</option>
@@ -97,9 +97,9 @@
           <option value="$15,000 to $50,000">$15,000 to $50,000</option>
           <option value="$50,000 or more">$50,000 or more</option>
           <option value="Not sure yet">not set yet</option>
-        </select>.</span>
-        You can reach me at
-        <span class="nw"><input class="blank" id="f-email" name="email" type="email" placeholder="email address" aria-label="Email" autocomplete="email" inputmode="email" aria-describedby="e-email" style="--accent: var(--red)">.</span>
+        </select>.</span></p>
+        <p>You can reach me at
+        <span class="nw"><input class="blank" id="f-email" name="email" type="email" placeholder="email address" aria-label="Email" autocomplete="email" inputmode="email" aria-describedby="e-email" style="--accent: var(--red)">.</span></p>
       </div>
       <div class="madlib-errors">
         <p class="error" id="e-first" hidden></p>
@@ -160,7 +160,7 @@
   <button class="player-close" type="button">Close</button>
   <div class="player-frame"></div>
 </dialog>
-<script src="assets/site.js?v=202611242200" defer></script>
+<script src="assets/site.js?v=202611242150" defer></script>
 <script>document.querySelectorAll("[data-year]").forEach(function(e){e.textContent=new Date().getFullYear()});</script>
 <script type="text/javascript" async src="https://subscribe-forms.beehiiv.com/attribution.js"></script>
 </body>
