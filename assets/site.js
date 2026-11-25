@@ -229,19 +229,45 @@
       var submit = form.querySelector('button[type="submit"]');
       var done = document.getElementById("form-done");
       var finish = function () {
+        var thanks = done.querySelector(".done-thanks");
         var swap = function () {
           form.hidden = true; done.hidden = false;
           window.scrollTo({ top: done.getBoundingClientRect().top + window.scrollY - 140 });
           done.focus({ preventScroll: true });
         };
-        // Sent: the RGB bands sweep across the screen and clear to reveal the thank-you.
-        if (matchMedia("(prefers-reduced-motion: reduce)").matches) { done.classList.add("fade-in"); swap(); return; }
+        // Sent: RGB bands sweep across the screen, a big THANKS! pops out in the middle,
+        // then it lands in place under "Inquiry sent." as the bands clear.
+        if (matchMedia("(prefers-reduced-motion: reduce)").matches || !thanks || !thanks.animate) { done.classList.add("fade-in"); swap(); return; }
         var sweep = document.createElement("div");
         sweep.className = "send-sweep"; sweep.setAttribute("aria-hidden", "true");
-        sweep.innerHTML = '<div class="sweep-track"><div class="sweep-band r"></div><div class="sweep-band g"></div><div class="sweep-band b"></div></div>';
+        sweep.innerHTML = '<div class="sweep-track"><div class="sweep-band r"></div><div class="sweep-band g"></div><div class="sweep-band b"></div></div><div class="sweep-thanks h-xl">THANKS!</div>';
         document.body.appendChild(sweep);
-        setTimeout(swap, 560);
-        setTimeout(function () { if (sweep.parentNode) sweep.parentNode.removeChild(sweep); }, 1400);
+        var fly = sweep.querySelector(".sweep-thanks");
+        thanks.classList.add("awaiting");
+        // Measure the landed size first so the flying word matches it exactly.
+        done.hidden = false; var size = getComputedStyle(thanks).fontSize; done.hidden = true;
+        fly.style.fontSize = size;
+        var vw = window.innerWidth, vh = window.innerHeight;
+        var w = fly.offsetWidth, h = fly.offsetHeight;
+        var BIG = Math.min(1.7, (vw * 0.9) / w);
+        var cx = (vw - w * BIG) / 2, cy = (vh - h * BIG) / 2;
+        var at = function (x, y, s) { return "translate(" + x + "px," + y + "px) scale(" + s + ")"; };
+        fly.animate([
+          { transform: at(cx + w * BIG * 0.3, cy + h * BIG * 0.3, BIG * 0.4), opacity: 0 },
+          { transform: at(cx - w * BIG * 0.04, cy - h * BIG * 0.04, BIG * 1.08), opacity: 1, offset: 0.7 },
+          { transform: at(cx, cy, BIG), opacity: 1 }
+        ], { duration: 420, delay: 280, easing: "cubic-bezier(.2,.8,.2,1)", fill: "both" });
+        setTimeout(swap, 640);
+        setTimeout(function () {
+          var r = thanks.getBoundingClientRect();
+          fly.animate([
+            { transform: at(cx, cy, BIG) },
+            { transform: at(r.left, r.top, 1) }
+          ], { duration: 560, easing: "cubic-bezier(.6,0,.2,1)", fill: "forwards" }).onfinish = function () {
+            thanks.classList.remove("awaiting");
+            if (sweep.parentNode) sweep.parentNode.removeChild(sweep);
+          };
+        }, 1000);
       };
 
       if (!ENDPOINT) { console.log("Staging mode, inquiry not sent:", Object.fromEntries(new FormData(form))); finish(); return; }
