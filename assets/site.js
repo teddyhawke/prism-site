@@ -229,45 +229,48 @@
       var submit = form.querySelector('button[type="submit"]');
       var done = document.getElementById("form-done");
       var finish = function () {
-        var thanks = done.querySelector(".done-thanks");
+        var hit = done.querySelector(".done-hit");
         var swap = function () {
           form.hidden = true; done.hidden = false;
           window.scrollTo({ top: done.getBoundingClientRect().top + window.scrollY - 140 });
           done.focus({ preventScroll: true });
         };
-        // Sent: RGB bands sweep across the screen, a big THANKS! pops out in the middle,
-        // then it lands in place under "Inquiry sent." as the bands clear.
-        if (matchMedia("(prefers-reduced-motion: reduce)").matches || !thanks || !thanks.animate) { done.classList.add("fade-in"); swap(); return; }
+        // Sent: the RGB bands wipe across the screen. In their wake, "Good call." is left large in the middle,
+        // then it glides down and settles into the first words of the thank-you line.
+        if (matchMedia("(prefers-reduced-motion: reduce)").matches || !hit || !hit.animate) { done.classList.add("fade-in"); swap(); return; }
         var sweep = document.createElement("div");
         sweep.className = "send-sweep"; sweep.setAttribute("aria-hidden", "true");
-        sweep.innerHTML = '<div class="sweep-track"><div class="sweep-band r"></div><div class="sweep-band g"></div><div class="sweep-band b"></div></div><div class="sweep-thanks h-xl">THANKS!</div>';
+        sweep.innerHTML = '<div class="sweep-backdrop"></div><div class="sweep-word"></div><div class="sweep-track"><div class="sweep-band r"></div><div class="sweep-band g"></div><div class="sweep-band b"></div></div>';
         document.body.appendChild(sweep);
-        var fly = sweep.querySelector(".sweep-thanks");
-        thanks.classList.add("awaiting");
-        // Measure the landed size first so the flying word matches it exactly.
-        done.hidden = false; var size = getComputedStyle(thanks).fontSize; done.hidden = true;
-        fly.style.fontSize = size;
+        var fly = sweep.querySelector(".sweep-word"), backdrop = sweep.querySelector(".sweep-backdrop");
+        fly.textContent = hit.textContent;
+        done.classList.add("landing");
+        // Copy the landed type exactly, so the hand-off is invisible.
+        done.hidden = false;
+        var cs = getComputedStyle(hit);
+        fly.style.font = cs.fontWeight + " " + cs.fontSize + "/" + cs.lineHeight + " " + cs.fontFamily;
+        fly.style.letterSpacing = cs.letterSpacing;
+        done.hidden = true;
         var vw = window.innerWidth, vh = window.innerHeight;
         var w = fly.offsetWidth, h = fly.offsetHeight;
-        var BIG = Math.min(1.7, (vw * 0.9) / w);
+        var BIG = Math.min(3.4, (vw * 0.82) / w);
         var cx = (vw - w * BIG) / 2, cy = (vh - h * BIG) / 2;
         var at = function (x, y, s) { return "translate(" + x + "px," + y + "px) scale(" + s + ")"; };
-        fly.animate([
-          { transform: at(cx + w * BIG * 0.3, cy + h * BIG * 0.3, BIG * 0.4), opacity: 0 },
-          { transform: at(cx - w * BIG * 0.04, cy - h * BIG * 0.04, BIG * 1.08), opacity: 1, offset: 0.7 },
-          { transform: at(cx, cy, BIG), opacity: 1 }
-        ], { duration: 420, delay: 280, easing: "cubic-bezier(.2,.8,.2,1)", fill: "both" });
-        setTimeout(swap, 640);
+        fly.style.transform = at(cx, cy, BIG);
+        // While the bands cover the screen: swap the page underneath and place the word behind the bands.
+        setTimeout(function () { swap(); backdrop.style.opacity = "1"; fly.style.opacity = "1"; }, 620);
         setTimeout(function () {
-          var r = thanks.getBoundingClientRect();
+          var r = hit.getBoundingClientRect();
+          var ease = "cubic-bezier(.65,0,.25,1)";
+          backdrop.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 600, easing: ease, fill: "forwards" });
           fly.animate([
             { transform: at(cx, cy, BIG) },
             { transform: at(r.left, r.top, 1) }
-          ], { duration: 560, easing: "cubic-bezier(.6,0,.2,1)", fill: "forwards" }).onfinish = function () {
-            thanks.classList.remove("awaiting");
+          ], { duration: 680, easing: ease, fill: "forwards" }).onfinish = function () {
+            done.classList.remove("landing");
             if (sweep.parentNode) sweep.parentNode.removeChild(sweep);
           };
-        }, 1000);
+        }, 1500);
       };
 
       if (!ENDPOINT) { console.log("Staging mode, inquiry not sent:", Object.fromEntries(new FormData(form))); finish(); return; }
