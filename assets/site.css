@@ -692,3 +692,25 @@ select.blank option { color: var(--black); background: var(--white); }
 .madlib .nw .blank { max-width: calc(100% - 0.4em); }
 .madlib p { margin: 0; max-width: none; }
 .madlib p + p { margin-top: 0.7em; }
+
+/* ---------- Inquiry sent: RGB bands sweep across the screen and clear to the thank-you ---------- */
+.send-sweep { position: fixed; inset: 0; z-index: 200; pointer-events: none; overflow: hidden; }
+.sweep-track {
+  position: absolute; left: 50%; top: 50%; width: 300vmax; height: 112vmax;
+  display: flex; flex-direction: column;
+  transform: translate(-50%, -50%) rotate(-18deg);
+}
+.sweep-band {
+  flex: 1; transform: translateX(-100%);
+  animation: sweep-in 0.5s cubic-bezier(.7,0,.25,1) forwards, sweep-out 0.55s cubic-bezier(.6,0,.3,1) 0.7s forwards;
+}
+.sweep-band.r { background: var(--red); }
+.sweep-band.g { background: var(--green); animation-delay: 0.06s, 0.76s; }
+.sweep-band.b { background: var(--blue); animation-delay: 0.12s, 0.82s; }
+@keyframes sweep-in { from { transform: translateX(-100%); } to { transform: translateX(0); } }
+@keyframes sweep-out { from { transform: translateX(0); } to { transform: translateX(100%); } }
+.on-dark .form-done { background: transparent; border-left: 0; padding: 0; }
+.form-done .lede a { color: var(--white); }
+.form-done.fade-in { animation: done-fade 0.4s ease both; }
+@keyframes done-fade { from { opacity: 0; } to { opacity: 1; } }
+.form[hidden] { display: none; }

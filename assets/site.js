@@ -229,8 +229,19 @@
       var submit = form.querySelector('button[type="submit"]');
       var done = document.getElementById("form-done");
       var finish = function () {
-        form.hidden = true; done.hidden = false; done.focus();
-        window.scrollTo({ top: done.getBoundingClientRect().top + window.scrollY - 100 });
+        var swap = function () {
+          form.hidden = true; done.hidden = false;
+          window.scrollTo({ top: done.getBoundingClientRect().top + window.scrollY - 140 });
+          done.focus({ preventScroll: true });
+        };
+        // Sent: the RGB bands sweep across the screen and clear to reveal the thank-you.
+        if (matchMedia("(prefers-reduced-motion: reduce)").matches) { done.classList.add("fade-in"); swap(); return; }
+        var sweep = document.createElement("div");
+        sweep.className = "send-sweep"; sweep.setAttribute("aria-hidden", "true");
+        sweep.innerHTML = '<div class="sweep-track"><div class="sweep-band r"></div><div class="sweep-band g"></div><div class="sweep-band b"></div></div>';
+        document.body.appendChild(sweep);
+        setTimeout(swap, 560);
+        setTimeout(function () { if (sweep.parentNode) sweep.parentNode.removeChild(sweep); }, 1400);
       };
 
       if (!ENDPOINT) { console.log("Staging mode, inquiry not sent:", Object.fromEntries(new FormData(form))); finish(); return; }
