@@ -167,10 +167,40 @@
       form.elements.message.value = "Asking about: " + about.slice(0, 60) + "\n";
     }
     var type = new URLSearchParams(location.search).get("type");
-    if (type) {
-      var match = form.querySelector('input[name="project_type"][value="' + type + '"]');
-      if (match) match.checked = true;
-    }
+    var typeSel = form.elements.project_type;
+    if (type && typeSel && typeSel.querySelector('option[value="' + type + '"]')) typeSel.value = type;
+
+    /* Fill-in-the-blanks: each blank grows to fit its words, and its underline lights up once filled. */
+    var blanks = form.querySelectorAll(".blank");
+    var ruler = document.createElement("canvas").getContext("2d");
+    var fit = function (el) {
+      var cs = getComputedStyle(el);
+      var text = el.tagName === "SELECT" ? el.options[el.selectedIndex].text : (el.value || el.placeholder);
+      ruler.font = cs.fontWeight + " " + cs.fontSize + " " + cs.fontFamily;
+      if ("letterSpacing" in ruler) ruler.letterSpacing = cs.letterSpacing;
+      var extra = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight) + (el.tagName === "SELECT" ? 2 : 1);
+      el.style.width = Math.ceil(ruler.measureText(text).width + extra) + "px";
+      el.classList.toggle("filled", !!el.value);
+      el.classList.toggle("is-empty", !el.value);
+    };
+    var fitAll = function () {
+      // Long example placeholders swap to a short prompt when the sentence column is narrow (phones).
+      blanks.forEach(function (el) {
+        if (!el.dataset.short) return;
+        if (!el.dataset.long) el.dataset.long = el.placeholder;
+        el.placeholder = el.parentNode.parentNode.clientWidth < 520 ? el.dataset.short : el.dataset.long;
+      });
+      blanks.forEach(fit);
+    };
+    blanks.forEach(function (el) {
+      el.addEventListener(el.tagName === "SELECT" ? "change" : "input", function () {
+        fit(el);
+        if (el.getAttribute("aria-invalid") && el.value) clear(el);
+      });
+    });
+    fitAll();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitAll);
+    window.addEventListener("resize", fitAll);
 
     var fail = function (el, msg) {
       el.setAttribute("aria-invalid", "true");
@@ -192,11 +222,8 @@
         if (!el.value.trim()) { fail(el, n === "firstname" ? "Add your first name so we know who to reply to." : "Add an email address so we can reply."); first = first || el; }
         else if (n === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim())) { fail(el, "Check the email address. It should look like name@company.com."); first = first || el; }
       });
-      var typeErr = document.getElementById("type-error");
-      if (!form.querySelector('input[name="project_type"]:checked')) {
-        typeErr.textContent = "Choose the kind of project."; typeErr.hidden = false;
-        first = first || form.querySelector('input[name="project_type"]');
-      } else { typeErr.hidden = true; }
+      clear(typeSel);
+      if (!typeSel.value) { fail(typeSel, "Pick the kind of project you're looking for."); first = first || typeSel; }
       if (first) { first.focus(); return; }
 
       var submit = form.querySelector('button[type="submit"]');
@@ -224,8 +251,7 @@
         var el = form.elements[n];
         if (el && el.value.trim()) fields.push({ objectTypeId: "0-1", name: n, value: el.value.trim() });
       });
-      var picked = form.querySelector('input[name="project_type"]:checked');
-      if (picked) fields.push({ objectTypeId: "0-1", name: "project_type", value: TYPE_LABELS[picked.value] || picked.value });
+      if (typeSel.value) fields.push({ objectTypeId: "0-1", name: "project_type", value: TYPE_LABELS[typeSel.value] || typeSel.value });
 
       var hutk = (document.cookie.match(/(?:^|; )hubspotutk=([^;]+)/) || [])[1];
       var context = { pageUri: location.href, pageName: document.title };

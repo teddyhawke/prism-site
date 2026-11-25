@@ -27,7 +27,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="icon" href="assets/brand/prism-badge.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
-<link rel="stylesheet" href="assets/site.css?v=202610291253">
+<link rel="stylesheet" href="assets/site.css?v=202611242200">
 </head>
 <body class="">
 <a class="skip" href="#main">Skip to content</a>
@@ -51,70 +51,65 @@
 
 <section class="intro on-dark">
   <div class="wrap">
-    <h1 class="h-lg">Start a project</h1>
-    <p class="lede muted">Tell us what you're making. We reply within two business days.</p>
+    <h1 class="h-lg">Start a project.</h1>
+    <p class="lede muted">Fill in the blanks. We reply within two business days.</p>
   </div>
 </section>
 <div class="intro-band" aria-hidden="true"></div>
-<section class="section">
-  <div class="wrap">
-    <form class="form" id="inquiry" novalidate data-endpoint="https://api.hsforms.com/submissions/v3/integration/submit/247829040/0a9617ae-748a-4ebd-85f6-429ed199c731">
-      <div class="two-up">
-        <div class="field">
-          <label for="f-first">First name</label>
-          <input class="input" id="f-first" name="firstname" autocomplete="given-name" aria-describedby="e-first">
-          <p class="error" id="e-first" hidden></p>
-        </div>
-        <div class="field">
-          <label for="f-last">Last name</label>
-          <input class="input" id="f-last" name="lastname" autocomplete="family-name">
-        </div>
+<section class="section on-dark start-section">
+  <div class="wrap start-grid">
+    <aside class="start-aside">
+      <p class="muted">Or write to us directly</p>
+      <p><a href="mailto:teddy@prismentmt.com">teddy@prismentmt.com</a></p>
+    </aside>
+    <div>
+    <form class="form madlib-form" id="inquiry" novalidate data-endpoint="https://api.hsforms.com/submissions/v3/integration/submit/247829040/0a9617ae-748a-4ebd-85f6-429ed199c731">
+      <div class="madlib">
+        Hi, my name is
+        <input class="blank" id="f-first" name="firstname" placeholder="first name" aria-label="First name" autocomplete="given-name" aria-describedby="e-first" style="--accent: var(--red)">
+        <input class="blank" id="f-last" name="lastname" placeholder="last name" aria-label="Last name" autocomplete="family-name" style="--accent: var(--red)">
+        and I&rsquo;m with
+        <span class="nw"><input class="blank" id="f-company" name="company" placeholder="company, artist or project" aria-label="Company, artist or project name" autocomplete="organization" style="--accent: var(--green)">.</span>
+        I&rsquo;m looking for
+        <span class="nw"><select class="blank" id="f-type" name="project_type" aria-label="What kind of project?" aria-describedby="type-error" style="--accent: var(--blue)">
+          <option value="">pick a project type</option>
+          <option value="brand">commercial or branded content</option>
+          <option value="music">music video or release content</option>
+          <option value="services">production services</option>
+          <option value="development">help developing a film or TV project</option>
+          <option value="other">something else</option>
+        </select>,</span>
+        specifically
+        <span class="nw"><input class="blank" id="f-deliverables" name="deliverables" placeholder="one music video and three vertical cutdowns" data-short="what you need made" aria-label="What do you need made?" style="--accent: var(--red)">.</span>
+        I need it
+        <select class="blank" id="f-timing" name="timing" aria-label="When do you need it?" style="--accent: var(--green)">
+          <option value="">pick a timeline</option>
+          <option value="Within 4 weeks">within 4 weeks</option>
+          <option value="1 to 3 months">in 1 to 3 months</option>
+          <option value="3 months or more">in 3 months or more</option>
+          <option value="Flexible">on a flexible timeline</option>
+        </select>
+        and the budget is
+        <span class="nw"><select class="blank" id="f-budget" name="budget_range" aria-label="Budget range" style="--accent: var(--blue)">
+          <option value="">pick a range</option>
+          <option value="Under $5,000">under $5,000</option>
+          <option value="$5,000 to $15,000">$5,000 to $15,000</option>
+          <option value="$15,000 to $50,000">$15,000 to $50,000</option>
+          <option value="$50,000 or more">$50,000 or more</option>
+          <option value="Not sure yet">not set yet</option>
+        </select>.</span>
+        You can reach me at
+        <span class="nw"><input class="blank" id="f-email" name="email" type="email" placeholder="email address" aria-label="Email" autocomplete="email" inputmode="email" aria-describedby="e-email" style="--accent: var(--red)">.</span>
       </div>
-      <div class="field">
-        <label for="f-email">Email</label>
-        <input class="input" id="f-email" name="email" type="email" autocomplete="email" inputmode="email" aria-describedby="e-email">
+      <div class="madlib-errors">
+        <p class="error" id="e-first" hidden></p>
+        <p class="error" id="type-error" hidden></p>
         <p class="error" id="e-email" hidden></p>
       </div>
       <div class="field">
-        <label for="f-company">Company, artist or project name</label>
-        <input class="input" id="f-company" name="company" autocomplete="organization">
-      </div>
-      <fieldset class="field">
-        <legend>What kind of project?</legend>
-        <div class="choices"><label class="choice"><input type="radio" name="project_type" value="music"><span>Music video or release content</span></label><label class="choice"><input type="radio" name="project_type" value="brand"><span>Commercial or branded content</span></label><label class="choice"><input type="radio" name="project_type" value="services"><span>Production services</span></label><label class="choice"><input type="radio" name="project_type" value="development"><span>Film or TV development</span></label><label class="choice"><input type="radio" name="project_type" value="other"><span>Something else</span></label></div>
-        <p class="error" id="type-error" hidden></p>
-      </fieldset>
-      <div class="field">
-        <label for="f-deliverables">What do you need made?</label>
-        <p class="hint" id="h-deliverables">For example: one music video and three vertical cutdowns.</p>
-        <textarea class="textarea" id="f-deliverables" name="deliverables" aria-describedby="h-deliverables"></textarea>
-      </div>
-      <div class="two-up">
-        <div class="field">
-          <label for="f-timing">When do you need it?</label>
-          <select class="select" id="f-timing" name="timing">
-            <option value="">Choose one</option>
-            <option>Within 4 weeks</option>
-            <option>1 to 3 months</option>
-            <option>3 months or more</option>
-            <option>Flexible</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="f-budget">Budget range</label>
-          <select class="select" id="f-budget" name="budget_range">
-            <option value="">Choose one</option>
-            <option>Under $5,000</option>
-            <option>$5,000 to $15,000</option>
-            <option>$15,000 to $50,000</option>
-            <option>$50,000 or more</option>
-            <option>Not sure yet</option>
-          </select>
-        </div>
-      </div>
-      <div class="field">
         <label for="f-notes">Anything else we should know?</label>
-        <textarea class="textarea" id="f-notes" name="message"></textarea>
+        <p class="hint" id="h-notes">Links, references, deadlines, the story behind it. Optional.</p>
+        <textarea class="textarea" id="f-notes" name="message" aria-describedby="h-notes"></textarea>
       </div>
       <div class="trap" aria-hidden="true"><label for="f-website">Leave this empty</label><input id="f-website" name="website" tabindex="-1" autocomplete="off"></div>
       <div>
@@ -126,6 +121,7 @@
     <div class="form-done" id="form-done" tabindex="-1" hidden>
       <h2 class="h-md">Inquiry sent.</h2>
       <p style="margin-top:12px">Thanks. We'll reply within two business days. If it's urgent, email <a href="mailto:teddy@prismentmt.com">teddy@prismentmt.com</a>.</p>
+    </div>
     </div>
   </div>
 </section>
@@ -164,7 +160,7 @@
   <button class="player-close" type="button">Close</button>
   <div class="player-frame"></div>
 </dialog>
-<script src="assets/site.js?v=202610291253" defer></script>
+<script src="assets/site.js?v=202611242200" defer></script>
 <script>document.querySelectorAll("[data-year]").forEach(function(e){e.textContent=new Date().getFullYear()});</script>
 <script type="text/javascript" async src="https://subscribe-forms.beehiiv.com/attribution.js"></script>
 </body>
